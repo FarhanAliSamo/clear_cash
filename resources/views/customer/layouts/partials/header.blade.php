@@ -61,14 +61,14 @@
         @media (max-width:768px) {
             .modal-content {
                 margin-top: 175px !important;
-            }
+            } 
 
             .modal .modal-dialog .modal-content .modal-body form .row input[type="text"],
             .modal .modal-dialog .modal-content .modal-body form .row input[type="date"],
             .modal .modal-dialog .modal-content .modal-body form .row input[type="number"],
             .modal .modal-dialog .modal-content .modal-body form .row input[type="tel"] {
                 height: 40px !important;
-                
+
             }
             .modal .modal-dialog .modal-content .modal-body form .row {
                 margin-bottom: 1rem;
