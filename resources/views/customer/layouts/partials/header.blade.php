@@ -53,7 +53,7 @@
 
 <body>
 
-    <style>
+    {{-- <style>
         .modal-content {
             margin-top: 25px;
         }
@@ -61,7 +61,7 @@
         @media (max-width:768px) {
             .modal-content {
                 margin-top: 175px !important;
-            } 
+            }
 
             .modal .modal-dialog .modal-content .modal-body form .row input[type="text"],
             .modal .modal-dialog .modal-content .modal-body form .row input[type="date"],
@@ -75,7 +75,7 @@
             }
 
         }
-    </style>
+    </style> --}}
 
     @include('sweetalert::alert')
     <div class="app-main-container">
