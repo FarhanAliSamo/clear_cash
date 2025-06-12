@@ -27,19 +27,20 @@ class CustomerMyAccountController extends Controller
         return view('customer.pages.my-account.index', compact('details'));
     }
 
-    public function mainDetailsStore(Request $request) {
+    public function mainDetailsStore(Request $request)
+    {
         $details = User::where('id', Auth::user()->id)->first();
 
         $validated = $request->validate([
-           'first_name' => ['nullable', 'string', 'max:255'],
-           'last_name' => ['nullable', 'string', 'max:255'],
+            'first_name' => ['nullable', 'string', 'max:255'],
+            'last_name' => ['nullable', 'string', 'max:255'],
             'email' => ['nullable', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::id())],
         ]);
 
         $currentEmail = $details->email;
         $newEmail = $validated['email'];
 
-        if($currentEmail != $newEmail) {
+        if ($currentEmail != $newEmail) {
             $details->update([
                 'first_name' => $validated['first_name'],
                 'last_name' => $validated['last_name'],
@@ -48,8 +49,7 @@ class CustomerMyAccountController extends Controller
             ]);
 
             return redirect()->route('my-account.index')->with('success', 'Your account details have been updated.');
-        }
-        else {
+        } else {
             $details->update([
                 'first_name' => $validated['first_name'],
                 'last_name' => $validated['last_name'],
@@ -60,7 +60,8 @@ class CustomerMyAccountController extends Controller
         }
     }
 
-    public function passwordUpdateStore(Request $request) {
+    public function passwordUpdateStore(Request $request)
+    {
         $details = User::where('id', Auth::user()->id)->first();
 
         $validated = $request->validate([
@@ -84,7 +85,6 @@ class CustomerMyAccountController extends Controller
         ]);
 
         return redirect()->route('my-account.index')->with('success', 'Your password has been updated.');
-
     }
 
 
@@ -116,7 +116,7 @@ class CustomerMyAccountController extends Controller
     {
         $customer = User::findOrFail($id);
 
-        if($customer) {
+        if ($customer) {
 
             //Remove Budget
             Budget::where('user_id', $id)->delete();
@@ -145,14 +145,13 @@ class CustomerMyAccountController extends Controller
 
             //Redirect to login
             return redirect()->route('login')->with('success', 'Your account details have been deleted and your data has been removed.');
-
-        }
-        else {
+        } else {
             return redirect()->back('dashboard');
         }
     }
 
-    public function resetAccount(Request $request) {
+    public function resetAccount(Request $request)
+    {
 
         $userId = Auth::id();
 
@@ -161,16 +160,16 @@ class CustomerMyAccountController extends Controller
         RecurringPayment::where('user_id', $userId)->delete();
         Transaction::where('user_id', $userId)->delete();
         CustomerAccountDetails::where('customer_id', $userId)->delete();
-        
+
         try {
-    $deleted = BankAccount::where('user_id', $userId)->forceDelete();
-    // dd('Deleted count: ' . $deleted);
-} catch (\Exception $e) {
-    dd('Error: ' . $e->getMessage());
-}
-    
+            $deleted = BankAccount::where('user_id', $userId)->forceDelete();
+            // dd('Deleted count: ' . $deleted);
+        } catch (\Exception $e) {
+            dd('Error: ' . $e->getMessage());
+        }
+
         $user = User::find($userId);
-        
+
         $user->has_completed_setup = 0;
         $user->save();
 

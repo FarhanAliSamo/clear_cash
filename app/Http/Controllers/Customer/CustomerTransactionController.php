@@ -78,7 +78,7 @@ class CustomerTransactionController extends Controller
         $bankAccounts = BankAccount::where('user_id', Auth::user()->id)
             ->orderBy('account_name', 'asc')
             ->get();
-            
+
         $categories = Budget::where('user_id', Auth::user()->id)
             ->get();
 
@@ -94,8 +94,10 @@ class CustomerTransactionController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'date' => ['required', 'date'],
-            'category' => ['required', 'integer', 'exists:budget_categories,id'],
-            'bank_account' => ['required', 'integer', 'exists:bank_accounts,id'],
+            'category' => ['required', 'integer'],
+            'bank_account' => ['required', 'integer'],
+            // 'category' => ['required', 'integer', 'exists:budget_categories,id'],
+            // 'bank_account' => ['required', 'integer', 'exists:bank_accounts,id'],
             'amount' => ['required', 'numeric', 'min:1'],
             'transaction_type' => ['required', 'string', 'max:255'],
             'internal_transfer' => ['nullable', 'boolean'],
@@ -209,8 +211,10 @@ class CustomerTransactionController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'date' => ['required', 'date'],
-            'category' => ['required', 'integer', 'exists:budget_categories,id'],
-            'bank_account' => ['required', 'integer', 'exists:bank_accounts,id'],
+            'category' => ['required', 'integer'],
+            'bank_account' => ['required', 'integer'],
+            // 'category' => ['required', 'integer', 'exists:budget_categories,id'],
+            // 'bank_account' => ['required', 'integer', 'exists:bank_accounts,id'],
             'amount' => ['required', 'numeric', 'min:1'],
             'transaction_type' => ['required', 'string', 'max:255'],
             'internal_transfer' => ['nullable', 'boolean'],

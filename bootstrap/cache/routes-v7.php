@@ -200,7 +200,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::zVoE9vZuFqkXQeYp',
+            '_route' => 'generated::JFfnqkFtDYAtCO9i',
           ),
           1 => NULL,
           2 => 
@@ -220,7 +220,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::7kqmNL9gppY3NSUa',
+            '_route' => 'generated::UoKlFyRKFk8DXKB3',
           ),
           1 => NULL,
           2 => 
@@ -953,7 +953,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::UrUycB9VHmsusPAE',
+            '_route' => 'generated::5F4MNbl3xujNwxUK',
           ),
           1 => NULL,
           2 => 
@@ -1008,7 +1008,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::dWKtOliLjS7In825',
+            '_route' => 'generated::LLZnVWybKgoDpyq8',
           ),
           1 => NULL,
           2 => 
@@ -1099,7 +1099,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::grFAX144XlOZxtzn',
+            '_route' => 'generated::rW8O1sAbHAx488pb',
           ),
           1 => NULL,
           2 => 
@@ -2129,7 +2129,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::zVoE9vZuFqkXQeYp' => 
+    'generated::JFfnqkFtDYAtCO9i' => 
     array (
       'methods' => 
       array (
@@ -2146,13 +2146,13 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:77:"function (\\Illuminate\\Http\\Request $request) {
     return $request->user();
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000a950000000000000000";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000006220000000000000000";}}',
         'namespace' => NULL,
         'prefix' => 'api',
         'where' => 
         array (
         ),
-        'as' => 'generated::zVoE9vZuFqkXQeYp',
+        'as' => 'generated::JFfnqkFtDYAtCO9i',
       ),
       'fallback' => false,
       'defaults' => 
@@ -2168,7 +2168,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::7kqmNL9gppY3NSUa' => 
+    'generated::UoKlFyRKFk8DXKB3' => 
     array (
       'methods' => 
       array (
@@ -2184,13 +2184,13 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:55:"function () {
     return \\redirect()->route(\'login\');
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000a970000000000000000";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000006240000000000000000";}}',
         'namespace' => NULL,
         'prefix' => '',
         'where' => 
         array (
         ),
-        'as' => 'generated::7kqmNL9gppY3NSUa',
+        'as' => 'generated::UoKlFyRKFk8DXKB3',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4440,7 +4440,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::UrUycB9VHmsusPAE' => 
+    'generated::5F4MNbl3xujNwxUK' => 
     array (
       'methods' => 
       array (
@@ -4460,7 +4460,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::UrUycB9VHmsusPAE',
+        'as' => 'generated::5F4MNbl3xujNwxUK',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4549,7 +4549,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::dWKtOliLjS7In825' => 
+    'generated::LLZnVWybKgoDpyq8' => 
     array (
       'methods' => 
       array (
@@ -4569,7 +4569,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::dWKtOliLjS7In825',
+        'as' => 'generated::LLZnVWybKgoDpyq8',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4768,7 +4768,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::grFAX144XlOZxtzn' => 
+    'generated::rW8O1sAbHAx488pb' => 
     array (
       'methods' => 
       array (
@@ -4788,7 +4788,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::grFAX144XlOZxtzn',
+        'as' => 'generated::rW8O1sAbHAx488pb',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4821,7 +4821,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:52:"function(){
     return \\view(\'auth.verify-email\');
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000a990000000000000000";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000006260000000000000000";}}',
         'namespace' => NULL,
         'prefix' => '',
         'where' => 
@@ -4876,7 +4876,7 @@ app('router')->setCompiledRoutes(
 
     // return redirect()->route(\'account-setup.step-one\');
     return \\redirect(\'/email-verified\');
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000ae30000000000000000";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000a2f0000000000000000";}}',
         'namespace' => NULL,
         'prefix' => '',
         'where' => 
@@ -4952,7 +4952,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:54:"function(){
     return \\view(\'auth.email-verified\');
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000ad80000000000000000";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000a240000000000000000";}}',
         'namespace' => NULL,
         'prefix' => '',
         'where' => 
