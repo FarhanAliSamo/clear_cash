@@ -19684,32 +19684,51 @@ fieldset:disabled .btn {
     }
 }
 
-
- .modal-content {
-            margin-top: 25px;
-        }
-
-        @media (max-width:768px) {
-
-            .modal-dialog-scrollable .modal-content {
-    max-height: 500px;
-    overflow: hidden;
+.modal-content {
+    margin-top: 25px;
 }
 
+@media (max-width: 768px) {
+    .modal-dialog-scrollable .modal-content {
+        max-height: 500px;
+        overflow: hidden;
+    }
 
-           .modal-content {
+    .modal-content {
         margin-top: 80px !important;
     }
 
-            .modal .modal-dialog .modal-content .modal-body form .row input[type="text"],
-            .modal .modal-dialog .modal-content .modal-body form .row input[type="date"],
-            .modal .modal-dialog .modal-content .modal-body form .row input[type="number"],
-            .modal .modal-dialog .modal-content .modal-body form .row input[type="tel"] {
-                height: 40px !important;
-
-            }
-            .modal .modal-dialog .modal-content .modal-body form .row {
-                margin-bottom: 1rem;
-            }
-
-        }
+    .modal
+        .modal-dialog
+        .modal-content
+        .modal-body
+        form
+        .row
+        input[type="text"],
+    .modal
+        .modal-dialog
+        .modal-content
+        .modal-body
+        form
+        .row
+        input[type="date"],
+    .modal
+        .modal-dialog
+        .modal-content
+        .modal-body
+        form
+        .row
+        input[type="number"],
+    .modal
+        .modal-dialog
+        .modal-content
+        .modal-body
+        form
+        .row
+        input[type="tel"] {
+        height: 40px !important;
+    }
+    .modal .modal-dialog .modal-content .modal-body form .row {
+        margin-bottom: 1rem;
+    }
+}
