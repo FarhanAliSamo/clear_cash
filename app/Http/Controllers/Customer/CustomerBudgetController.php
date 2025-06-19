@@ -169,7 +169,7 @@ class CustomerBudgetController extends Controller
     public function globalAddNewBudget(Request $request) {
 
         $existingBudget = Budget::where('user_id', Auth::user()->id)
-            ->latest('budget_start_date')
+            ->latest('budget_end_date')
             ->first();
 
         $budgetStartDate = $existingBudget ? $existingBudget->budget_start_date : Carbon::today();
