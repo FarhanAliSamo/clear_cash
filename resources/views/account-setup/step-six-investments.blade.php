@@ -120,13 +120,13 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <label for="name_of_pension_investment_account">Name of Account</label>
-                                        <input type="text" name="name_of_pension_investment_account[]" required>
+                                        <input type="text" name="name_of_pension_investment_account[]" >
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <label for="bank_account_type">Account type</label>
-                                        <select name="pension_investment_type[]" required>
+                                        <select name="pension_investment_type[]" >
                                             <option value="" disabled selected>Select an option...</option>
                                             <option value="pension">Pension</option>
                                             <option value="investment">Investments</option>
@@ -137,7 +137,7 @@
                                     <div class="col-12">
                                         <label for="bank_account_starting_balance">Starting Balance</label>
                                         <input type="number" name="pension_investment_account_starting_balance[]"
-                                            step="any" required>
+                                            step="any" >
                                     </div>
                                 </div>
                                 <div class="row">

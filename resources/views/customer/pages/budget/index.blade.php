@@ -3,9 +3,6 @@
 
 
 @section('content')
-
-
-
     <section class="pageTitleBanner">
         <div class="container">
             <div class="row">
@@ -30,7 +27,8 @@
             </div>
             <div class="budgetChartWrapper text-center my-5">
                 <canvas id="budgetChart" width="300" height="300"></canvas>
-                <h4 class="mt-3 fw-bold">Left <span id="remainingAmount">£{{ number_format($remainingBudget, 2) }}</span>
+                <h4 class="mt-3 fw-bold">Clearcash
+                    left <span id="remainingAmount">£{{ number_format($remainingBudget, 2) }}</span>
                 </h4>
                 <p class="text-muted">Spent £{{ number_format($amountSpent, 2) }} out of
                     £{{ number_format($totalBudget, 2) }}</p>
@@ -183,7 +181,7 @@
                                                     {{ number_format($item['budget']->amount, 2) }}
                                                 @elseif($item['totalSpent'] > $item['budget']->amount)
                                                     0.00 @else{{ number_format($item['remainingAmount'], 2) }}
-                                                @endif left of
+                                                @endif <span class="px-1 opacity-75"> left of </span>
                                                 £{{ number_format($item['budget']->amount, 2) }}
                                             </h6>
                                         </div>
@@ -209,73 +207,128 @@
 
 
                                 {{-- // to change  --}}
-                                <div class="modal fade" id="modal-{{ str_replace(' ', '-', $item['budgetItem']->category_name) }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal fade"
+                                    id="modal-{{ str_replace(' ', '-', $item['budgetItem']->category_name) }}"
+                                    tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                         <div class="modal-content ">
                                             <div class="modal-header">
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close">
                                                     <i class="fas fa-times"></i>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
+
+
+                                                <div class="transactionList mb-3 pt-0 mt-0">
+
+                                                    <ul class="list-group mt-0 pt-0">
+
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center my-1"
+                                                            style="background-color: #d1f9ff0d ;border:none;">
+                                                            <div class="d-flex flex-column">
+                                                                <span class="fs-5 fw-semibold text-white">
+
+                                                                    You have <span style="color:#31d2f7"> £
+
+
+                                                                        @if ($item['totalSpent'] == '0')
+                                                                        {{ number_format($item['budget']->amount, 2) }}
+                                                                        @elseif($item['totalSpent'] > $item['budget']->amount)
+                                                                        0.00
+                                                                        @else{{ number_format($item['remainingAmount'], 2) }}
+                                                                        @endif
+
+                                                                    </span>
+
+                                                                     left for this category on your budget - ( £ {{ number_format($item['budget']->amount, 2) }} )
+
+
+
+
+                                                                </span>
+
+                                                            </div>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+
+
                                                 {{-- Transaction List --}}
                                                 @if (count($item['transactions']) > 0)
                                                     <div class="transactionList">
                                                         <h4 class="mb-3 fw-semibold text-white">Recent Expenses</h4>
 
-                                                        <ul class="list-group"  >
+                                                        <ul class="list-group">
                                                             @foreach ($item['transactions'] as $transaction)
-                                                                <li class="list-group-item d-flex justify-content-between align-items-center my-1" style="background-color: #d1f9ff0d ;border:none;">
+                                                                <li class="list-group-item d-flex justify-content-between align-items-center my-1"
+                                                                    style="background-color: #d1f9ff0d ;border:none;">
                                                                     <div class="d-flex flex-column">
-                                                                        <span class="fs-5 fw-semibold text-white">{{ $transaction->name ?? 'No Name' }}</span>
-                                                                        <small class="text-white">{{ \Carbon\Carbon::parse($transaction->date)->format('d M, Y') }}</small>
+                                                                        <span
+                                                                            class="fs-5 fw-semibold text-white">{{ $transaction->name ?? 'No Name' }}</span>
+                                                                        <small
+                                                                            class="text-white">{{ \Carbon\Carbon::parse($transaction->date)->format('d M, Y') }}</small>
                                                                     </div>
-                                                                    <span class="badge bg-danger fs-6">£{{ number_format($transaction->amount, 2) }}</span>
+                                                                    <span
+                                                                        class="badge bg-danger fs-6">£{{ number_format($transaction->amount, 2) }}</span>
                                                                 </li>
                                                             @endforeach
                                                         </ul>
                                                     </div>
-                                                    @else
-                                                    <ul class="list-group"  >
+                                                @else
+                                                    <ul class="list-group">
 
-                                                            <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: #d1f9ff0d ;border:none;">
-                                                                <div class="d-flex flex-column">
-                                                                    <span class="text-white">No expenses recorded yet for this category</span>
-                                                                    {{-- <p class=" text-white">No expenses recorded yet for this category.</p> --}}
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                                                            style="background-color: #d1f9ff0d ;border:none;">
+                                                            <div class="d-flex flex-column">
+                                                                <span class="text-white">No expenses recorded yet for this
+                                                                    category</span>
+                                                                {{-- <p class=" text-white">No expenses recorded yet for this category.</p> --}}
 
-                                                                </div>
+                                                            </div>
 
-                                                            </li>
+                                                        </li>
 
                                                     </ul>
                                                     {{-- <p class="mt-4 text-muted text-white">No expenses recorded yet for this category.</p> --}}
                                                 @endif
 
                                                 {{-- Edit Budget Section --}}
-                                                <div class="edit-budget-section mt-5">
-                                                    <h4 class="fw-bold text-white mb-3">Edit {{ $item['budgetItem']->category_name }} Budget</h4>
+                                                <div class="edit-budget-section mt-4">
+                                                    <h4 class="fw-bold text-white mb-3">Edit
+                                                        {{ $item['budgetItem']->category_name }} Budget</h4>
 
-                                                    <form action="{{ route('budget.update', $item['budget']->id) }}" method="post">
+                                                    <form action="{{ route('budget.update', $item['budget']->id) }}"
+                                                        method="post">
                                                         @csrf
                                                         @method('put')
 
                                                         <div class="mb-3">
                                                             <label for="amount" class="theme_label">Amount (£)</label>
-                                                            <input type="number" step="0.01" name="amount" id="amount" class="theme_input" value="{{ old('amount', $item['budget']->amount) }}" required>
+                                                            <input type="number" step="0.01" name="amount"
+                                                                id="amount" class="theme_input"
+                                                                value="{{ old('amount', $item['budget']->amount) }}"
+                                                                required>
                                                         </div>
 
                                                         <div class="d-flex justify-content-end">
-                                                            <button type="submit" class="twoToneBlueGreenBtn text-center py-2">Update Budget</button>
+                                                            <button type="submit"
+                                                                class="twoToneBlueGreenBtn text-center py-2">Update
+                                                                Budget</button>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
 
-                                            <div class="modal-footer"  >
-                                                <form action="{{ route('budget.reset-budget', $item['budget']->id) }}" method="post">
+                                            <div class="modal-footer">
+                                                <form action="{{ route('budget.reset-budget', $item['budget']->id) }}"
+                                                    method="post">
                                                     @csrf
                                                     @method('put')
-                                                    <button type="submit" class="twoToneBlueGreenBtn text-center py-2">Reset</button>
+                                                    <button type="submit"
+                                                        class="twoToneBlueGreenBtn text-center py-2">Reset</button>
                                                 </form>
                                             </div>
                                         </div>

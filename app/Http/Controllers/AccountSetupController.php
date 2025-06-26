@@ -271,16 +271,21 @@ class AccountSetupController extends Controller
         //     ]);
         // }
 
-        foreach ($request->name_of_pension_investment_account as $key => $pi_account) {
-
-            // dd($pi_account,$request->pension_investment_type[$key],$request->pension_investment_account_starting_balance[$key], );
-
-            BankAccount::create([
-                'account_name' => $pi_account,
-                'account_type' => $request->pension_investment_type[$key],
-                'starting_balance' => $request->pension_investment_account_starting_balance[$key],
-                'user_id' => $user->id,
-            ]);
+        if (!empty($request->name_of_pension_investment_account)) {
+            foreach ($request->name_of_pension_investment_account as $key => $pi_account) {
+                if (
+                    !empty($pi_account) &&
+                    !empty($request->pension_investment_type[$key]) &&
+                    !empty($request->pension_investment_account_starting_balance[$key])
+                ) {
+                    BankAccount::create([
+                        'account_name' => $pi_account,
+                        'account_type' => $request->pension_investment_type[$key],
+                        'starting_balance' => $request->pension_investment_account_starting_balance[$key],
+                        'user_id' => $user->id,
+                    ]);
+                }
+            }
         }
 
 
