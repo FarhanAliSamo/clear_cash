@@ -70,8 +70,9 @@
                 <div class="col-lg-6">
                     <h4 class="mb-3">Current Balances</h4>
                     <div class="infoBox">
+
                         <div class="row align-items-center mb-lg-0 mb-2">
-                            <div class="col-6"><strong>Cash</strong></div>
+                            <div class="col-6"><strong>Bank</strong></div>
                             <div class="col-6 d-flex justify-content-end">£
                                 @if (Auth::user()->has_completed_setup == true)
                                     {{ number_format($cashSavings, 2) }}
@@ -122,7 +123,18 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="row align-items-center mb-lg-0 mb-2">
+
+                         <div class="row align-items-center mb-lg-0 mb-2">
+                            <div class="col-6"><strong>Credit Card</strong></div>
+                            <div class="col-6 d-flex justify-content-end">£
+                                @if (Auth::user()->has_completed_setup == true)
+                                    {{ number_format($credit_card, 2) }}
+                                @else
+                                    0.00
+                                @endif
+                            </div>
+                        </div>
+                        {{-- <div class="row align-items-center mb-lg-0 mb-2">
                             <div class="col-6"><strong>Salary</strong></div>
                             <div class="col-6 d-flex justify-content-end">
                                 @if (Auth::user()->has_completed_setup == true)
@@ -130,7 +142,7 @@
                                     0.00
                                 @endif
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-lg-6">

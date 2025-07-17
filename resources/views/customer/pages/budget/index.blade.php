@@ -3,6 +3,24 @@
 
 
 @section('content')
+    <style>
+        .budgetChartWrapper {
+            position: relative;
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        .budgetChartWrapper h4,
+        .budgetChartWrapper p {
+            color: white !important;
+        }
+
+        .budgetChartWrapper h4,
+        .budgetChartWrapper p {
+            color: white !important;
+        }
+    </style>
+
     <section class="pageTitleBanner">
         <div class="container">
             <div class="row">
@@ -25,7 +43,7 @@
                     <h2>Total Budget</h2>
                 </div>
             </div>
-            <div class="budgetChartWrapper text-center my-5">
+            <div class="budgetChartWrapper text-center">
                 <canvas id="budgetChart" width="300" height="300"></canvas>
                 <h4 class="mt-3 fw-bold">Clearcash
                     left <span id="remainingAmount">£{{ number_format($remainingBudget, 2) }}</span>
@@ -34,23 +52,6 @@
                     £{{ number_format($totalBudget, 2) }}</p>
             </div>
 
-            <style>
-                .budgetChartWrapper {
-                    position: relative;
-                    width: 300px;
-                    margin: 0 auto;
-                }
-
-                .budgetChartWrapper h4,
-                .budgetChartWrapper p {
-                    color: white !important;
-                }
-
-                .budgetChartWrapper h4,
-                .budgetChartWrapper p {
-                    color: white !important;
-                }
-            </style>
 
             {{-- <style>
                 .budgetChartWrapper {
@@ -177,12 +178,22 @@
                                         <div class="col-8">
                                             <h5>{{ str_replace('_', ' ', $item['budgetItem']->category_name) }}</h5>
                                             <h6>
-                                                £@if ($item['totalSpent'] == '0')
-                                                    {{ number_format($item['budget']->amount, 2) }}
+                                                @if ($item['totalSpent'] == '0')
+                                                    £{{ number_format($item['budget']->amount, 2) }}
+                                                    <span class="px-1 opacity-75"> left of </span>
+                                                    £{{ number_format($item['budget']->amount, 2) }}
                                                 @elseif($item['totalSpent'] > $item['budget']->amount)
-                                                    0.00 @else{{ number_format($item['remainingAmount'], 2) }}
-                                                @endif <span class="px-1 opacity-75"> left of </span>
-                                                £{{ number_format($item['budget']->amount, 2) }}
+                                                    0.00
+                                                    <span class="px-1 opacity-75"> left of </span>
+                                                    £{{ number_format($item['budget']->amount, 2) }}
+                                                    <span class="text-danger ms-2">
+                                                        (Overspent by £{{ number_format($item['totalSpent'] - $item['budget']->amount, 2) }})
+                                                    </span>
+                                                @else
+                                                    £{{ number_format($item['remainingAmount'], 2) }}
+                                                    <span class="px-1 opacity-75"> left of </span>
+                                                    £{{ number_format($item['budget']->amount, 2) }}
+                                                @endif
                                             </h6>
                                         </div>
                                         <div class="col-4" style="text-align: right;">
@@ -230,19 +241,22 @@
                                                             <div class="d-flex flex-column">
                                                                 <span class="fs-5 fw-semibold text-white">
 
+
+
                                                                     You have <span style="color:#31d2f7"> £
 
 
                                                                         @if ($item['totalSpent'] == '0')
-                                                                        {{ number_format($item['budget']->amount, 2) }}
+                                                                            {{ number_format($item['budget']->amount, 2) }}
                                                                         @elseif($item['totalSpent'] > $item['budget']->amount)
-                                                                        0.00
-                                                                        @else{{ number_format($item['remainingAmount'], 2) }}
+                                                                            0.00
+                                                                            @else{{ number_format($item['remainingAmount'], 2) }}
                                                                         @endif
 
                                                                     </span>
 
-                                                                     left for this category on your budget - ( £ {{ number_format($item['budget']->amount, 2) }} )
+                                                                    left for this category ( £
+                                                                    {{ number_format($item['budget']->amount, 2) }} )
 
 
 
@@ -271,8 +285,17 @@
                                                                         <small
                                                                             class="text-white">{{ \Carbon\Carbon::parse($transaction->date)->format('d M, Y') }}</small>
                                                                     </div>
+                                                                    @if($transaction->transaction_type == 'income')
                                                                     <span
-                                                                        class="badge bg-danger fs-6">£{{ number_format($transaction->amount, 2) }}</span>
+                                                                    class="badge bg-success fs-6">
+                                                                    £ +{{ number_format($transaction->amount, 2) }}</span>
+                                                                    @else
+                                                                    <span
+                                                                    class="badge bg-danger fs-6">
+                                                                    £{{ number_format($transaction->amount, 2) }}</span>
+
+                                                                    @endif
+
                                                                 </li>
                                                             @endforeach
                                                         </ul>

@@ -57,7 +57,7 @@ class CustomerBudgetController extends Controller
 
             if ($budget) {
                 $transactions = Transaction::where('user_id', Auth::user()->id)
-                    ->where('category_id', $budgetItem->id)
+                    ->where('category_id', $budgetItem->id)->where('transaction_type', 'expense')
                     ->get();
 
                 $budgetTotalSpent = $transactions->sum('amount');
@@ -69,10 +69,13 @@ class CustomerBudgetController extends Controller
                     ? ($budgetTotalSpent / $startingBudgetAmount) * 100
                     : 0;
 
+                $totalTransactions = Transaction::where('user_id', Auth::user()->id)
+                    ->where('category_id', $budgetItem->id)->get();
+
                 $categoryDetails[] = [
                     'budgetItem' => $budgetItem,
                     'budget' => $budget,
-                    'transactions' => $transactions,
+                    'transactions' => $totalTransactions,
                     'totalSpent' => $budgetTotalSpent,
                     'startingBudgetAmount' => $startingBudgetAmount,
                     'remainingAmount' => $remainingAmount,
@@ -99,7 +102,8 @@ class CustomerBudgetController extends Controller
         return redirect()->route('budget.index')->with('success', 'Budget updated.');
     }
 
-    public function resetBudget(Request $request, string $id) {
+    public function resetBudget(Request $request, string $id)
+    {
         $budget = Budget::where('id', $id)
             ->where('user_id', Auth::user()->id)
             ->first();
@@ -111,7 +115,8 @@ class CustomerBudgetController extends Controller
         return redirect()->route('budget.index')->with('success', 'Budget reset.');
     }
 
-    public function editCategoryList() {
+    public function editCategoryList()
+    {
         $budgetItems = Budget::where('user_id', Auth::user()->id)
             ->where('amount', '>', 0)
             ->whereDate('budget_end_date', '>=', Carbon::today()->format('Y-m-d'))
@@ -121,7 +126,8 @@ class CustomerBudgetController extends Controller
         return view('customer.pages.budget.edit-category-list', compact('budgetItems'));
     }
 
-    public function updateCategoryList(Request $request) {
+    public function updateCategoryList(Request $request)
+    {
         $validatedData = $request->validate([
             'budget_items.*.id' => ['nullable', 'exists:budgets,id'],
             'budget_items.*.category_name' => ['nullable', 'string', 'max:255'],
@@ -166,7 +172,8 @@ class CustomerBudgetController extends Controller
     }
 
 
-    public function globalAddNewBudget(Request $request) {
+    public function globalAddNewBudget(Request $request)
+    {
 
         $existingBudget = Budget::where('user_id', Auth::user()->id)
             ->latest('budget_end_date')

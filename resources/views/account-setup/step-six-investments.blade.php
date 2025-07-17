@@ -162,7 +162,8 @@
                             <div class="col-6 d-flex justify-content-start">
                                 <a class="setupStepsBackButton" href="{{ route('account-setup.step-five') }}">Back</a>
                             </div>
-                            <div class="col-6 d-flex justify-content-end">
+                            <div class="col-6 d-flex justify-content-end gap-4">
+                                <button type="submit" class="twoToneBlueGreenBtn">Skip & Continue</button>
                                 <button type="submit" class="twoToneBlueGreenBtn">Continue</button>
                             </div>
                         </div>

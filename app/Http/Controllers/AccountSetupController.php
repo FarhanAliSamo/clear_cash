@@ -49,6 +49,7 @@ class AccountSetupController extends Controller
             $accSetup = array_merge($accSetup, [
                 'period_selection' => $validated['period_selection'],
                 'date' => 1,
+                // 'date' => 1,
             ]);
 
             // Save the updated session data
@@ -64,12 +65,16 @@ class AccountSetupController extends Controller
             } elseif ($lastDayOfMonth->isSunday()) {
                 $lastDayOfMonth->subDays(2); // Move to Friday
             }
+
             $lastWorkingDay = $lastDayOfMonth->day;
+
 
             $accSetup = array_merge($accSetup, [
                 'period_selection' => $validated['period_selection'],
                 'date' => $lastWorkingDay,
             ]);
+
+            // dd($accSetup["date"]);
 
             // Save the updated session data
             $request->session()->put('accSetup', $accSetup);
@@ -133,6 +138,11 @@ class AccountSetupController extends Controller
             'other_amounts.*' => ['nullable', 'numeric'],
         ]);
 
+
+
+
+
+
         //Check if existing session
         if (empty($request->session()->get('accSetup'))) {
             $accSetup = new CustomerAccountDetails();
@@ -143,7 +153,7 @@ class AccountSetupController extends Controller
 
 
         $request->session()->put('accSetup', $accSetup);
-        // dd($accSetup);
+        // dd($accSetup['period_selection']);
 
         // Redirect to next step (bank accounts)
         return to_route('account-setup.step-four');
@@ -307,13 +317,36 @@ class AccountSetupController extends Controller
             }
         }
 
+        if ($accSetup['period_selection'] == 'first_day') {
+            $budget_start_date = Carbon::now()->startOfMonth()->toDateString();
+            $budgetExpiryDate = Carbon::now()->endOfMonth()->toDateString();
+        } elseif ($accSetup['period_selection'] == 'last_working') {
+            $budget_start_date = Carbon::now()->startOfMonth()->toDateString();
+            $budgetExpiryDate = Carbon::now()->endOfMonth()->toDateString();
+        } else {
+            // $accSetup['date'] contains the day (e.g., 5), so get this month's date with that day
+            $budget_start_date = Carbon::create(
+                Carbon::now()->year,
+                Carbon::now()->month,
+                $accSetup['date'],
+                0,
+                0,
+                0,
+                config('app.timezone')
+            )->toDateString();
+
+            // dd($budget_start_date);
+            $nextMonth = Carbon::now()->addMonth();
+            $budgetExpiryDate = Carbon::create($nextMonth->year, $nextMonth->month, $accSetup['date'], 0, 0, 0, config('app.timezone'))->toDateString();
+        }
+
         // Get budget expiry date
-        $budgetExpiryDay = $accSetup['date'] ?? 1;
-        $nextMonth = Carbon::now()->addMonth();
-        $budgetExpiryDate = Carbon::create($nextMonth->year, $nextMonth->month, $budgetExpiryDay, 0, 0, 0, config('app.timezone'))->toDateString();
+        // $budgetExpiryDay = $accSetup['date'] ?? 1;
+        // $budgetExpiryDate = Carbon::create($nextMonth->year, $nextMonth->month, $budgetExpiryDay, 0, 0, 0, config('app.timezone'))->toDateString();
 
         // dd($accSetup);
         // Store all expenses (existing + new) in BudgetCategory and Budget
+
         foreach ($expenses as $category => $amount) {
             try {
                 $budgetCategory = BudgetCategory::firstOrCreate([
@@ -326,7 +359,8 @@ class AccountSetupController extends Controller
                     'category_name' => $budgetCategory->name,
                     'amount' => $amount,
                     'user_id' => $user->id,
-                    'budget_start_date' => Carbon::today(),
+                    // 'budget_start_date' => Carbon::today(),
+                    'budget_start_date' => $budget_start_date,
                     'budget_end_date' => $budgetExpiryDate,
                 ]);
             } catch (\Exception $e) {
@@ -361,7 +395,7 @@ class AccountSetupController extends Controller
             'category_name' => 'salary',
             'amount' => $accSetup['salary_amount'],
             'user_id' => $user->id,
-            'budget_start_date' => Carbon::today(),
+            'budget_start_date' => $budget_start_date,
             'budget_end_date' => $budgetExpiryDate,
         ]);
 

@@ -23,6 +23,7 @@ class CustomerDashboardController extends Controller
             $cashSavings = BankAccount::where('user_id', Auth::user()->id)->where('account_type','current_account')->sum('starting_balance');
 
             $savingsAmount = BankAccount::where('user_id', Auth::user()->id)->where('account_type','savings_account')->sum('starting_balance');
+            $credit_card = BankAccount::where('user_id', Auth::user()->id)->where('account_type','credit_card')->sum('starting_balance');
 
             $networth = BankAccount::where('user_id', Auth::user()->id)->sum('starting_balance');
 
@@ -31,7 +32,7 @@ class CustomerDashboardController extends Controller
             $budgets = Budget::where('user_id', Auth::user()->id)
                 ->whereDate('budget_end_date', '>=', Carbon::today()->format('Y-m-d'))
                 ->get(); // Get all matching budget records
-
+            // dd($budgets);
             $budgetEndDate = $budgets->isNotEmpty() ? $budgets->first()->budget_end_date : null;
             $budgetStartDate = $budgets->isNotEmpty() ? $budgets->first()->budget_start_date : null;
 
@@ -75,7 +76,7 @@ class CustomerDashboardController extends Controller
                 ->where('account_type', 'investment')
                 ->sum('starting_balance');
 
-            return view('customer.pages.dashboard', compact('customer', 'cashSavings', 'savingsAmount', 'networth', 'remainingBudget', 'amountSpent', 'totalBudget', 'transactions', 'income', 'expense', 'recurringPayments', 'bankAccounts', 'budgetStartDate', 'budgetEndDate', 'pensionAccountsTotal', 'investmentAmountTotal'));
+            return view('customer.pages.dashboard', compact('customer', 'credit_card','cashSavings', 'savingsAmount', 'networth', 'remainingBudget', 'amountSpent', 'totalBudget', 'transactions', 'income', 'expense', 'recurringPayments', 'bankAccounts', 'budgetStartDate', 'budgetEndDate', 'pensionAccountsTotal', 'investmentAmountTotal'));
         }
 
         else {

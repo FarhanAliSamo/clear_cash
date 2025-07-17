@@ -15,6 +15,12 @@
                                     Add Transaction
                                 </button>
                             </li>
+                            {{-- <li>
+                                <button type="button" class="modalBtn" data-bs-toggle="modal"
+                                    data-bs-target="#fundTransfer">
+                                    Fund Transfer
+                                </button>
+                            </li> --}}
                             <li>
                                 <button type="button" class="modalBtn" data-bs-toggle="modal"
                                     data-bs-target="#addRecurringPayment">
@@ -52,9 +58,9 @@
                                                 </div>
                                                 <div class="col-md-5 ps-md-0 d-md-flex justify-content-md-end">
                                                     <div class="input-group">
-                                                        <label for="" class="">£</label>
-                                                        <input type="number" class="" min="0"
-                                                            step="any" name="amount" placeholder="0.00" required>
+                                                        <label >£</label>
+                                                        <input type="number"   min="0"
+                                                            step="any" name="amount" placeholder="0.00" required style="width: 80% !important;">
                                                     </div>
                                                 </div>
                                             </div>
@@ -170,6 +176,78 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- <div class="modal fade" id="fundTransfer" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h1>Fund Transfer</h1>
+                                    <form action="{{ route('transactions.global-add-transaction') }}" method="post">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label for="name">Name of Business/Person *</label>
+                                                <input type="text" name="name" id="name">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label for="date">Date *</label>
+                                                <input type="date" name="date" id="date">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label for="from_account">From*</label>
+                                                <select name="from_account" id="">
+                                                    <option value="" disabled selected>Select a bank account...
+                                                    </option>
+                                                    @foreach ($bankAccounts as $account)
+                                                        <option value="{{ $account->id }}">
+                                                            {{ str_replace('_', ' ', $account->account_name) }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label for="to_account">To*</label>
+                                                <select name="to_account" id="">
+                                                    <option value="" disabled selected>Select a bank account...
+                                                    </option>
+                                                    @foreach ($bankAccounts as $account)
+                                                        <option value="{{ $account->id }}">
+                                                            {{ str_replace('_', ' ', $account->account_name) }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label for="amount">Amount *</label>
+                                                <input type="number" name="amount" id="amount" step="any">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 offset-md-8 d-md-flex justify-content-md-end">
+                                                <button type="submit"
+                                                    class="twoToneBlueGreenBtn text-center py-2">Save</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
+
                     <div class="modal fade" id="addRecurringPayment" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                             <div class="modal-content">

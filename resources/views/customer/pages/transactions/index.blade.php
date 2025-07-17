@@ -59,7 +59,7 @@
                                         </a>
                                     </div>
                                 @endforeach
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                                         <label for="category">Category</label>
                                                         <select name="category" id="category">
                                                             @foreach($categories as $cat)
-                                                                <option value="{{ $cat->id }}" @if($cat->id == $transaction->category_id) selected @endif style="text-transform: capitalize !important;">{{ str_replace('_', ' ',$cat->category_name) }}</option>
+                                                                <option value="{{ $cat->id }}"  @if($cat->id == $transaction->category_id) selected @endif style="text-transform: capitalize !important;">{{ str_replace('_', ' ',$cat->category_name) }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -148,18 +148,18 @@
                                                         border-radius: 6px;
                                                         padding: 10px;
                                                     }
-                                                
+
                                                     select option {
                                                         background-color: #1D373B !important;
                                                         color: #ffffff !important;
                                                         text-transform: capitalize !important;
                                                     }
-                                                
+
                                                     label {
                                                         color: #ffffff !important;
                                                     }
                                                 </style>
-                                                
+
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <label for="amount">Amount</label>

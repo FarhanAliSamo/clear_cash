@@ -79,7 +79,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-12">
-                                                            <label for="bank_account_starting_balance">Starting balance</label>
+                                                            <label for="bank_account_starting_balance">New balance</label>
                                                             <input type="number" name="bank_account_starting_balance" id="bank_account_starting_balance" value="{{ old('bank_account_starting_balance', $account->starting_balance) }}">
                                                         </div>
                                                     </div>

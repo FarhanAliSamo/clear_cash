@@ -51,7 +51,7 @@
                     </p>
                 </div>
             </div>
-           
+
             <div class="row mt-md-4 mt-0">
                 <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
                     <form action="{{ route('account-setup-step-five-store') }}" method="post">
@@ -73,6 +73,7 @@
                                             <option value="savings_account">Savings Account</option>
                                             <option value="isa_account">ISA Account</option>
                                             <option value="investment_account">Investment Account</option>
+                                            <option value="credit_card">Credit  Card</option>
                                         </select>
                                     </div>
                                 </div>
