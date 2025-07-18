@@ -6,7 +6,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <button type="button" class="modalBtn" data-bs-toggle="modal" data-bs-target="#addBudget">
-                                    Add Budget
+                                    Add Budget Category
                                 </button>
                             </li>
                             <li>
@@ -58,17 +58,18 @@
                                                 </div>
                                                 <div class="col-md-5 ps-md-0 d-md-flex justify-content-md-end">
                                                     <div class="input-group">
-                                                        <label >£</label>
-                                                        <input type="number"   min="0"
-                                                            step="any" name="amount" placeholder="0.00" required style="width: 80% !important;">
+                                                        <label>£</label>
+                                                        <input type="number" min="0" step="any"
+                                                            name="amount" placeholder="0.00" required
+                                                            style="width: 80% !important;">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4 offset-md-8 d-md-flex justify-content-md-end">
-                                                <button type="submit"
-                                                    class="twoToneBlueGreenBtn text-center py-2">Save</button>
+                                                <button type="submit" class="twoToneBlueGreenBtn text-center py-2"
+                                                    data-loading-text="Saving...">Save</button>
                                             </div>
                                         </div>
                                     </form>
@@ -167,8 +168,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4 offset-md-8 d-md-flex justify-content-md-end">
-                                                <button type="submit"
-                                                    class="twoToneBlueGreenBtn text-center py-2">Save</button>
+                                                <button type="submit" class="twoToneBlueGreenBtn text-center py-2"
+                                                    data-loading-text="Saving...">Save</button>
                                             </div>
                                         </div>
                                     </form>
@@ -349,8 +350,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4 offset-md-8 d-md-flex justify-content-md-end">
-                                                <button type="submit"
-                                                    class="twoToneBlueGreenBtn text-center py-2">Save</button>
+                                                <button type="submit" class="twoToneBlueGreenBtn text-center py-2"
+                                                    data-loading-text="Saving...">Save</button>
                                             </div>
                                         </div>
                                     </form>
@@ -404,8 +405,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4 offset-md-8 d-md-flex justify-content-md-end">
-                                                <button type="submit"
-                                                    class="twoToneBlueGreenBtn text-center py-2">Save</button>
+                                                <button type="submit" class="twoToneBlueGreenBtn text-center py-2"
+                                                    data-loading-text="Saving...">Save</button>
                                             </div>
                                         </div>
                                     </form>
@@ -416,6 +417,27 @@
                 @endif
                 </main>
                 </div>
+
+                <script>
+                    document.querySelectorAll('.modal form').forEach(form => {
+                        form.addEventListener('submit', function(e) {
+                            const submitBtn = form.querySelector('button[type="submit"]');
+                            if (submitBtn) {
+                                // Set loading text
+                                const loadingText = submitBtn.dataset.loadingText || 'Saving...';
+
+                                // Add spinner + text
+                                submitBtn.innerHTML = `
+                    <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> ${loadingText}
+                `;
+
+                                // Disable the button to prevent duplicate submissions
+                                submitBtn.disabled = true;
+                                submitBtn.classList.add('opacity-50');
+                            }
+                        });
+                    });
+                </script>
                 <script src="{{ asset('/sw.js') }}"></script>
                 <script>
                     if ("serviceWorker" in navigator) {
