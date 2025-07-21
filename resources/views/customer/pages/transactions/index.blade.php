@@ -63,8 +63,28 @@
                                 </div>
                             </div>
                         </div>
+
+
+
                     </div>
                 </div>
+
+                    <div class="col-12 mt-4">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card text-white h-100 shadow-sm p-3 rounded" style="background-color:#d1f9ff0d">
+                            <h5 class="mb-1">Total Transactions Today</h5>
+                            <p class="fs-4 m-0">£{{ number_format($totalTransactionAmountToday, 2) }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card  text-white h-100 shadow-sm p-3 rounded" style="background-color:#dc354575">
+                            <h5 class="mb-1">Total Expenses Today</h5>
+                            <p class="fs-4 m-0">£{{ number_format($totalExpenseAmountToday, 2) }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </section>

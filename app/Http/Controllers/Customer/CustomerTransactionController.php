@@ -17,24 +17,47 @@ class CustomerTransactionController extends Controller
      */
     public function index()
     {
-        // Get the transactions for the user
-        $transactions = Transaction::where('user_id', Auth::user()->id)
+        $userId = Auth::user()->id;
+
+        // Get all transactions with category
+        $transactions = Transaction::where('user_id', $userId)
             ->with('category')
             ->orderBy('date', 'desc')
             ->get();
 
-        // Group transactions by the date (assuming date is in Y-m-d format)
+        // Group transactions by date
         $groupedTransactions = $transactions->groupBy(function ($transaction) {
-            return \Carbon\Carbon::parse($transaction->date)->format('Y-m-d'); // Format the date to group by
+            return \Carbon\Carbon::parse($transaction->date)->format('Y-m-d');
         });
 
-        $bankAccounts = BankAccount::where('user_id', Auth::user()->id)
+        // Calculate today's totals
+        $today = \Carbon\Carbon::today()->format('Y-m-d');
+
+        $todayTransactions = $transactions->filter(function ($transaction) use ($today) {
+            return \Carbon\Carbon::parse($transaction->date)->format('Y-m-d') === $today;
+        });
+
+        $totalTransactionAmountToday = $todayTransactions->sum('amount');
+
+        // Assuming there's a 'type' field in transaction which can be 'expense'
+        $totalExpenseAmountToday = $todayTransactions->filter(function ($transaction) {
+            return $transaction->type === 'expense';
+        })->sum('amount');
+
+        $bankAccounts = BankAccount::where('user_id', $userId)
             ->orderBy('account_name', 'asc')
             ->where('account_name', '!=', 'pension')
             ->get();
 
-        return view('customer.pages.transactions.index', compact('groupedTransactions', 'bankAccounts', 'transactions'));
+        return view('customer.pages.transactions.index', compact(
+            'groupedTransactions',
+            'bankAccounts',
+            'transactions',
+            'totalTransactionAmountToday',
+            'totalExpenseAmountToday'
+        ));
     }
+
 
     public function filterByBank($bankName)
     {
@@ -247,7 +270,7 @@ class CustomerTransactionController extends Controller
 
         ]);
 
-         $budget = Budget::where('user_id', Auth::user()->id)
+        $budget = Budget::where('user_id', Auth::user()->id)
             ->where('id', $validated['category'])
             ->first();
         $budgetCurrentBalance = $budget->amount;
@@ -260,8 +283,8 @@ class CustomerTransactionController extends Controller
             $bankAccount->update([
                 'starting_balance' => $amountToAdd,
             ]);
-              $budgetAdd = $budgetCurrentBalance + $validated['amount'];
-             $budget->update([
+            $budgetAdd = $budgetCurrentBalance + $validated['amount'];
+            $budget->update([
                 'amount' => $budgetAdd,
             ]);
         } else {
