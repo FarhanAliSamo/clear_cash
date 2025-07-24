@@ -300,6 +300,71 @@ class CustomerTransactionController extends Controller
 
         return redirect()->back()->with('success', 'Transaction recorded successfully.');
     }
+    public function globalFundTransfer(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'date' => ['required', 'date'],
+            // 'category' => ['required', 'integer'],
+            'from_account' => ['required'],
+            'to_account' => ['required'],
+            // 'category' => ['required', 'integer', 'exists:budget_categories,id'],
+            // 'bank_account' => ['required', 'integer', 'exists:bank_accounts,id'],
+            'amount' => ['required', 'numeric', 'min:1'],
+            'transaction_type' => ['required', 'string', 'max:255'],
+            'internal_transfer' => ['nullable', 'boolean'],
+        ]);
+
+        $isInternalTransfer = $request->has('internal_transfer') ? true : false;
+
+
+        $relatedCategory = Budget::where('user_id', Auth::user()->id)
+            ->where('id', $validated['category'])
+            ->first();
+
+        $transaction = Transaction::create([
+            'name' => $validated['name'],
+            'date' => $validated['date'],
+            'category_name' => $relatedCategory->category_name,
+            'category_id' => $validated['category'],
+            'bank_account_id' => $validated['bank_account'],
+            'amount' => $validated['amount'],
+            'transaction_type' => $validated['transaction_type'],
+            'internal_transfer' => $isInternalTransfer,
+            'user_id' => Auth::user()->id,
+
+        ]);
+
+        $budget = Budget::where('user_id', Auth::user()->id)
+            ->where('id', $validated['category'])
+            ->first();
+        $budgetCurrentBalance = $budget->amount;
+
+        $bankAccount = BankAccount::where('id', $validated['bank_account'])->first();
+        $currentBalance = $bankAccount->starting_balance;
+
+        if ($validated['transaction_type'] == 'income') {
+            $amountToAdd = $currentBalance + $validated['amount'];
+            $bankAccount->update([
+                'starting_balance' => $amountToAdd,
+            ]);
+            $budgetAdd = $budgetCurrentBalance + $validated['amount'];
+            $budget->update([
+                'amount' => $budgetAdd,
+            ]);
+        } else {
+            $amountToTake = $currentBalance - $validated['amount'];
+            $bankAccount->update([
+                'starting_balance' => $amountToTake,
+            ]);
+            //  $budgetRemove = $budgetCurrentBalance - $validated['amount'];
+            //  $budget->update([
+            //     'amount' => $budgetRemove,
+            // ]);
+        }
+
+        return redirect()->back()->with('success', 'Transaction recorded successfully.');
+    }
     // public function fundTransfer(Request $request)
     // {
     //     $validated = $request->validate([

@@ -54,10 +54,10 @@ Route::middleware(['auth', 'verified'])->group(function(){
 
 //Client / Customer Routes
 Route::middleware(['auth', 'role:super admin|customer', 'verified'])->group(function () {
-    
-   
+
+
     Route::post('reset-account', [CustomerMyAccountController::class, 'resetAccount'])->name('reset-account');
-    
+
     Route::get('dashboard', [CustomerDashboardController::class, 'index'])->name('dashboard');
 
     //Bank Account
@@ -89,6 +89,8 @@ Route::middleware(['auth', 'role:super admin|customer', 'verified'])->group(func
     //transactions
     Route::resource('transactions', CustomerTransactionController::class);
     Route::post('transactions/global-add-transaction', [CustomerTransactionController::class, 'globalAddTransaction'])->name('transactions.global-add-transaction');
+
+    Route::post('transactions/global-fund-transfer', [CustomerTransactionController::class, 'globalFundTransfer'])->name('transactions.global-fund-transfer');
 
     Route::get('transactions-filter-by-bank/{bank}', [CustomerTransactionController::class, 'filterByBank'])->name('transactions.filter-by-bank');
 });

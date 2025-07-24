@@ -200,7 +200,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::tgpkKxRhmlAYfCGA',
+            '_route' => 'generated::XTwRoOMTjoqyd3FR',
           ),
           1 => NULL,
           2 => 
@@ -220,7 +220,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::69GMMTa2rwPW0WsK',
+            '_route' => 'generated::VP8bd0qk3UKNe1DF',
           ),
           1 => NULL,
           2 => 
@@ -953,7 +953,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::eyeGKWQuUVlJVsFP',
+            '_route' => 'generated::DgMGfqjryneUauGN',
           ),
           1 => NULL,
           2 => 
@@ -1008,7 +1008,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::sXM8kA6CPfXVcLe5',
+            '_route' => 'generated::SHH0Ymivx6gzHkY1',
           ),
           1 => NULL,
           2 => 
@@ -1099,7 +1099,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::BmA4jWiWs0PJ9g0S',
+            '_route' => 'generated::I6UjN4vDNYqWaovU',
           ),
           1 => NULL,
           2 => 
@@ -1174,7 +1174,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/b(?|ank\\-accounts/(?|([^/]++)(?|(*:114)|/edit(*:127)|(*:135))|global\\-add\\-bank\\-account(*:170))|udget/(?|update/([^/]++)(*:203)|reset\\-budget/([^/]++)(*:233)))|/my\\-account/(?|main\\-details\\-store/([^/]++)(*:288)|password\\-update\\-store/([^/]++)(*:328)|delete\\-account/([^/]++)(*:360))|/recurring\\-payments/([^/]++)(?|(*:401)|/edit(*:414)|(*:422))|/transactions(?|/(?|([^/]++)(?|(*:462)|/edit(*:475)|(*:483))|global\\-add\\-transaction(*:516))|\\-filter\\-by\\-bank/([^/]++)(*:552))|/password/reset/([^/]++)(*:585)|/email/verify/([^/]++)/([^/]++)(*:624))/?$}sDu',
+      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/b(?|ank\\-accounts/(?|([^/]++)(?|(*:114)|/edit(*:127)|(*:135))|global\\-add\\-bank\\-account(*:170))|udget/(?|update/([^/]++)(*:203)|reset\\-budget/([^/]++)(*:233)))|/my\\-account/(?|main\\-details\\-store/([^/]++)(*:288)|password\\-update\\-store/([^/]++)(*:328)|delete\\-account/([^/]++)(*:360))|/recurring\\-payments/([^/]++)(?|(*:401)|/edit(*:414)|(*:422))|/transactions(?|/(?|([^/]++)(?|(*:462)|/edit(*:475)|(*:483))|global\\-(?|add\\-transaction(*:519)|fund\\-transfer(*:541)))|\\-filter\\-by\\-bank/([^/]++)(*:578))|/password/reset/([^/]++)(*:611)|/email/verify/([^/]++)/([^/]++)(*:650))/?$}sDu',
     ),
     3 => 
     array (
@@ -1620,7 +1620,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      516 => 
+      519 => 
       array (
         0 => 
         array (
@@ -1641,7 +1641,28 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      552 => 
+      541 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'transactions.global-fund-transfer',
+          ),
+          1 => 
+          array (
+          ),
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      578 => 
       array (
         0 => 
         array (
@@ -1664,7 +1685,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      585 => 
+      611 => 
       array (
         0 => 
         array (
@@ -1687,7 +1708,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      624 => 
+      650 => 
       array (
         0 => 
         array (
@@ -2129,7 +2150,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::tgpkKxRhmlAYfCGA' => 
+    'generated::XTwRoOMTjoqyd3FR' => 
     array (
       'methods' => 
       array (
@@ -2152,7 +2173,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::tgpkKxRhmlAYfCGA',
+        'as' => 'generated::XTwRoOMTjoqyd3FR',
       ),
       'fallback' => false,
       'defaults' => 
@@ -2168,7 +2189,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::69GMMTa2rwPW0WsK' => 
+    'generated::VP8bd0qk3UKNe1DF' => 
     array (
       'methods' => 
       array (
@@ -2190,7 +2211,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::69GMMTa2rwPW0WsK',
+        'as' => 'generated::VP8bd0qk3UKNe1DF',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4169,6 +4190,45 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'transactions.global-fund-transfer' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'transactions/global-fund-transfer',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'role:super admin|customer',
+          3 => 'verified',
+        ),
+        'uses' => 'App\\Http\\Controllers\\Customer\\CustomerTransactionController@globalFundTransfer',
+        'controller' => 'App\\Http\\Controllers\\Customer\\CustomerTransactionController@globalFundTransfer',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+        'as' => 'transactions.global-fund-transfer',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'transactions.filter-by-bank' => 
     array (
       'methods' => 
@@ -4440,7 +4500,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::eyeGKWQuUVlJVsFP' => 
+    'generated::DgMGfqjryneUauGN' => 
     array (
       'methods' => 
       array (
@@ -4460,7 +4520,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::eyeGKWQuUVlJVsFP',
+        'as' => 'generated::DgMGfqjryneUauGN',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4549,7 +4609,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::sXM8kA6CPfXVcLe5' => 
+    'generated::SHH0Ymivx6gzHkY1' => 
     array (
       'methods' => 
       array (
@@ -4569,7 +4629,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::sXM8kA6CPfXVcLe5',
+        'as' => 'generated::SHH0Ymivx6gzHkY1',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4768,7 +4828,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::BmA4jWiWs0PJ9g0S' => 
+    'generated::I6UjN4vDNYqWaovU' => 
     array (
       'methods' => 
       array (
@@ -4788,7 +4848,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::BmA4jWiWs0PJ9g0S',
+        'as' => 'generated::I6UjN4vDNYqWaovU',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4876,7 +4936,7 @@ app('router')->setCompiledRoutes(
 
     // return redirect()->route(\'account-setup.step-one\');
     return \\redirect(\'/email-verified\');
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000a2f0000000000000000";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000a300000000000000000";}}',
         'namespace' => NULL,
         'prefix' => '',
         'where' => 
@@ -4952,7 +5012,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:54:"function(){
     return \\view(\'auth.email-verified\');
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000a240000000000000000";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000a250000000000000000";}}',
         'namespace' => NULL,
         'prefix' => '',
         'where' => 

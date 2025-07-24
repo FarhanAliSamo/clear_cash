@@ -25,6 +25,7 @@
             </div>
         </section>
     @endif
+
     <section class="addTransactionFilterBanner">
         <div class="container">
             <div class="row">

@@ -15,12 +15,12 @@
                                     Add Transaction
                                 </button>
                             </li>
-                            {{-- <li>
+                            <li>
                                 <button type="button" class="modalBtn" data-bs-toggle="modal"
                                     data-bs-target="#fundTransfer">
                                     Fund Transfer
                                 </button>
-                            </li> --}}
+                            </li>
                             <li>
                                 <button type="button" class="modalBtn" data-bs-toggle="modal"
                                     data-bs-target="#addRecurringPayment">
@@ -178,7 +178,7 @@
                         </div>
                     </div>
 
-                    {{-- <div class="modal fade" id="fundTransfer" tabindex="-1" aria-hidden="true">
+                    <div class="modal fade" id="fundTransfer" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -189,7 +189,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <h1>Fund Transfer</h1>
-                                    <form action="{{ route('transactions.global-add-transaction') }}" method="post">
+                                    <form action="{{ route('transactions.global-fund-transfer') }}" method="post">
                                         @csrf
                                         <div class="row">
                                             <div class="col-12">
@@ -247,7 +247,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
 
                     <div class="modal fade" id="addRecurringPayment" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
