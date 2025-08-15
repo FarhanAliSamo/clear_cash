@@ -3182,17 +3182,17 @@ header .modal .modal-dialog .modal-content .modal-body h1 {
     margin-bottom: 0.4rem;
 }
 .dashboardNextStepsBanner .nextStepsBox .item a {
-    
+
     font-size: 0.9rem;
-     
+
 }
 .dateInfoBanner .inner {
-    
+
     border-radius: 6px;
-     
+
     font-size: 0.9rem;
     padding: 0.6rem 1.5rem;
- 
+
 }
 
 .pageTitleBanner {
@@ -3208,18 +3208,18 @@ header .modal .modal-dialog .modal-content .modal-body h1 {
 }
 
 .dashboardInfoBoxesBanner .infoBox {
-    
+
     border-radius: 7px;
-    
-    
+
+
     min-height: 100px;
     margin-bottom: 0.6rem;
     padding: 1.2rem;
-     
+
 }
 
 .bankAccountsMainList .bankItem
- 
+
  {
     margin-bottom: 1.4rem;
 }
@@ -3275,5 +3275,12 @@ option {
         height: 300px !important;
         margin: 0 auto;
         object-fit: contain;
+    }
+}
+
+
+@media only screen and (max-width: 500px) {
+    .spentAmount{
+        font-size: 0.7rem !important;
     }
 }

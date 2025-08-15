@@ -21,12 +21,12 @@
                                     Fund Transfer
                                 </button>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <button type="button" class="modalBtn" data-bs-toggle="modal"
                                     data-bs-target="#addRecurringPayment">
                                     Add Recurring payment
                                 </button>
-                            </li>
+                            </li> --}}
                             <li>
                                 <button type="button" class="modalBtn" data-bs-toggle="modal"
                                     data-bs-target="#addBankAccount">
@@ -157,7 +157,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        {{-- <div class="row">
                                             <div class="col-12">
                                                 <div class="input-group">
                                                     <input type="checkbox" name="internal_transfer"
@@ -165,7 +165,7 @@
                                                     <label for="internal_transfer">Internal Transfer</label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="row">
                                             <div class="col-md-4 offset-md-8 d-md-flex justify-content-md-end">
                                                 <button type="submit" class="twoToneBlueGreenBtn text-center py-2"
@@ -249,7 +249,7 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="addRecurringPayment" tabindex="-1" aria-hidden="true">
+                    {{-- <div class="modal fade" id="addRecurringPayment" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -358,7 +358,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
+
                     <div class="modal fade" id="addBankAccount" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                             <div class="modal-content">
@@ -392,6 +393,8 @@
                                                     <option value="investment_account">Investment Account</option>
                                                     <option value="pension">Pension</option>
                                                     <option value="investment">Investments</option>
+
+                                                    <option value="credit_card">Credit Card</option>
 
                                                 </select>
                                             </div>

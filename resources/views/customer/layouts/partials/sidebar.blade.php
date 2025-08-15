@@ -9,7 +9,8 @@
                 <div class="userWrapper">
                     <div class="dropup">
                         <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ asset('images/icons/ph_user.png') }}" alt="" class="img-fluid userIcon"> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
+                            <img src="{{ asset('images/icons/ph_user.png') }}" alt="" class="img-fluid userIcon"> {{ Auth::user()->first_name }}
+                            {{-- {{ Auth::user()->last_name }} --}}
                         </button>
                         <ul class="dropdown-menu">
                             <li>
@@ -37,8 +38,8 @@
     </div>
 </aside>
 
- 
- 
+
+
     @if (config('sweetalert.animation.enable'))
         <link rel="stylesheet" href="{{ config('sweetalert.animatecss') }}">
     @endif
@@ -51,7 +52,7 @@
         <script src="{{ $cdn ?? asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
     @endif
 
-      
+
         <script>
             function resetAccount(){
 
@@ -86,7 +87,7 @@
                             Swal.fire('Reset!', 'Your account has been reset.', 'success').then(() => {
                                 window.location.href = "{{ route('account-setup.step-one') }}";
                             });
-                             
+
                         })
                         .catch(() => {
                             Swal.fire('Error', 'Something went wrong. Please try again.', 'error');

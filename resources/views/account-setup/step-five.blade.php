@@ -1,7 +1,6 @@
 @extends('layouts.customer')
 @section('styles_in_head')
-    {{-- Add your link below --}}
-    <link rel="stylesheet" href="{{asset('build/assets/account-setup.css')}}">
+    <link rel="stylesheet" href="{{ asset('build/assets/account-setup.css') }}">
 @endsection
 @section('content')
     <style>
@@ -9,12 +8,42 @@
         aside.sidebar {
             display: none;
         }
+
         main.dashboardMain {
             padding-top: 2rem;
             width: 100%;
         }
+
         main.dashboardMain.full {
             padding-top: 2rem;
+        }
+
+        .bankItem.completed {
+            border: 1px solid #28a74569 !important;
+            background: #28a7450a !important;
+        }
+
+        .saveBankBtn,
+        .editBankBtn {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            margin-right: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .saveBankBtn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .creditNote {
+            color: #d9534f;
+            font-size: 0.9em;
+            margin-top: 4px;
+            display: none;
         }
     </style>
 
@@ -34,7 +63,7 @@
                         </div>
                         <div class="boxes">
                             <div class="box active"></div>
-                            <div class="box active "></div>
+                            <div class="box active"></div>
                             <div class="box active"></div>
                             <div class="box active"></div>
                             <div class="box"></div>
@@ -43,12 +72,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row  ">
+            <div class="row">
                 <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
                     <h1>Add bank accounts</h1>
-                    <p>
-                        Add each of your bank accounts so you can easily keep track of all your spending and current balances.
-                    </p>
+                    <p>Add each of your bank accounts so you can easily keep track of all your spending and current
+                        balances.</p>
                 </div>
             </div>
 
@@ -60,31 +88,36 @@
                             <div class="bankItem">
                                 <div class="row">
                                     <div class="col-12">
-                                        <label for="name_of_bank_account">Name of bank</label>
+                                        <label>Name of bank</label>
                                         <input type="text" name="name_of_bank_account[]" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <label for="bank_account_type">Account type</label>
+                                        <label>Account type</label>
                                         <select name="bank_account_type[]" required>
                                             <option value="" disabled selected>Select an option...</option>
                                             <option value="current_account">Current Account</option>
                                             <option value="savings_account">Savings Account</option>
                                             <option value="isa_account">ISA Account</option>
                                             <option value="investment_account">Investment Account</option>
-                                            <option value="credit_card">Credit  Card</option>
+                                            <option value="credit_card">Credit Card</option>
                                         </select>
+                                        <div class="creditNote">If you need to repay your card, insert a negative value.
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <label for="bank_account_starting_balance">Starting balance</label>
-                                        <input type="number" name="bank_account_starting_balance[]" step="any" required>
+                                        <label>Starting balance</label>
+                                        <input type="number" name="bank_account_starting_balance[]" step="any"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12 d-flex justify-content-end">
+                                        <button type="button" class="saveBankBtn">Save</button>
+                                        <button type="button" class="editBankBtn" style="display:none;">Edit</button>
                                         <button type="button" class="removeBankBtn">Remove</button>
                                     </div>
                                 </div>
@@ -114,16 +147,108 @@
     </section>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const addAnotherBankBtn = document.querySelector(".addAnotherBankBtn");
             const bankDetailsWrapper = document.querySelector(".bankDetailsInputMainWrap");
 
-            addAnotherBankBtn.addEventListener("click", function () {
+            function checkIfComplete(bankItem) {
+                let allFilled = true;
+                bankItem.querySelectorAll("input[required], select[required]").forEach(field => {
+                    if (!field.value.trim()) {
+                        allFilled = false;
+                    }
+                });
+                if (allFilled) {
+                    bankItem.classList.add("completed");
+                } else {
+                    bankItem.classList.remove("completed");
+                }
+            }
+
+            function toggleCreditNote(bankItem, select) {
+                const note = bankItem.querySelector(".creditNote");
+                if (select.value === "credit_card") {
+                    note.style.display = "block";
+                } else {
+                    note.style.display = "none";
+                }
+            }
+
+            function attachEvents(bankItem) {
+                bankItem.querySelectorAll("input, select").forEach(field => {
+                    field.addEventListener("input", () => checkIfComplete(bankItem));
+                });
+
+                const accountTypeSelect = bankItem.querySelector("select[name='bank_account_type[]']");
+                accountTypeSelect.addEventListener("change", function() {
+                    toggleCreditNote(bankItem, this);
+                });
+
+                const saveBtn = bankItem.querySelector(".saveBankBtn");
+                const editBtn = bankItem.querySelector(".editBankBtn");
+
+                saveBtn.addEventListener("click", function() {
+                    let valid = true;
+                    bankItem.querySelectorAll("input[required], select[required]").forEach(field => {
+                        if (!field.value.trim()) {
+                            valid = false;
+                            field.style.border = "1px solid red";
+                        } else {
+                            field.style.border = "";
+                        }
+                    });
+
+                    if (!valid) {
+                        alert("Please fill all required fields before saving.");
+                        return;
+                    }
+
+                    bankItem.querySelectorAll("input, select").forEach(field => {
+                        field.setAttribute("readonly", true);
+                        // field.setAttribute("readonly", true);
+
+                        if (field.tagName === "SELECT") {
+                            const hidden = document.createElement("input");
+                            hidden.type = "hidden";
+                            hidden.name = field.name;
+                            hidden.value = field.value;
+                            bankItem.appendChild(hidden);
+                            field.setAttribute("disabled", true); // sirf UI block karne ke liye
+                        } else {
+                            field.setAttribute("readonly", true);
+                        }
+                    });
+
+                    bankItem.classList.add("completed");
+                    saveBtn.textContent = "Saved";
+                    saveBtn.disabled = true;
+                    editBtn.style.display = "inline-block";
+                });
+
+                editBtn.addEventListener("click", function() {
+                    bankItem.querySelectorAll("input, select").forEach(field => {
+                        field.removeAttribute("readonly");
+                        field.removeAttribute("disabled");
+                    });
+
+                    const saveBtn = bankItem.querySelector(".saveBankBtn");
+                    saveBtn.textContent = "Save";
+                    saveBtn.disabled = false;
+                    editBtn.style.display = "none";
+                });
+            }
+
+            attachEvents(bankDetailsWrapper.querySelector(".bankItem"));
+
+            addAnotherBankBtn.addEventListener("click", function() {
                 const firstBankItem = bankDetailsWrapper.querySelector(".bankItem");
                 const newBankItem = firstBankItem.cloneNode(true);
 
-                // Clear input values in the cloned bankItem
+                newBankItem.classList.remove("completed");
                 newBankItem.querySelectorAll("input, select").forEach(field => {
+                    field.removeAttribute("readonly");
+                    field.removeAttribute("disabled");
+                    field.style.border = "";
                     if (field.tagName === "SELECT") {
                         field.selectedIndex = 0;
                     } else {
@@ -131,21 +256,16 @@
                     }
                 });
 
-                // Add a remove button if it doesn’t exist
-                let removeBtn = newBankItem.querySelector(".removeBankBtn");
-                if (!removeBtn) {
-                    removeBtn = document.createElement("button");
-                    removeBtn.type = "button";
-                    removeBtn.className = "removeBankBtn";
-                    removeBtn.textContent = "Remove";
-                    newBankItem.appendChild(removeBtn);
-                }
+                newBankItem.querySelector(".saveBankBtn").textContent = "Save";
+                newBankItem.querySelector(".saveBankBtn").disabled = false;
+                newBankItem.querySelector(".editBankBtn").style.display = "none";
+                newBankItem.querySelector(".creditNote").style.display = "none";
 
                 bankDetailsWrapper.appendChild(newBankItem);
+                attachEvents(newBankItem);
             });
 
-            // Remove bank item when the remove button is clicked
-            bankDetailsWrapper.addEventListener("click", function (event) {
+            bankDetailsWrapper.addEventListener("click", function(event) {
                 if (event.target.classList.contains("removeBankBtn")) {
                     const bankItem = event.target.closest(".bankItem");
                     if (bankDetailsWrapper.querySelectorAll(".bankItem").length > 1) {
@@ -155,5 +275,4 @@
             });
         });
     </script>
-
 @endsection

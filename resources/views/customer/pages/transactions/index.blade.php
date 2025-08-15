@@ -479,14 +479,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-12">
                                 <div class="input-group">
                                     <input type="checkbox" name="internal_transfer" id="internal_transfer">
                                     <label for="internal_transfer">Internal Transfer</label>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="row">
                             <div class="col-12">
                                 <button type="submit" class="twoToneBlueGreenBtn">Add Transaction</button>

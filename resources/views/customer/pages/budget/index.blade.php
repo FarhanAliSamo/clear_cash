@@ -175,7 +175,7 @@
                                 <button type="button" class="modalBtn" data-bs-toggle="modal"
                                     data-bs-target="#modal-{{ str_replace(' ', '-', $item['budgetItem']->category_name) }}">
                                     <div class="row px-0 align-items-start">
-                                        <div class="col-8">
+                                        <div class="md:col-8 col-10">
                                             <h5>{{ str_replace('_', ' ', $item['budgetItem']->category_name) }}</h5>
                                             <h6>
                                                 @if ($item['totalSpent'] == '0')
@@ -196,7 +196,7 @@
                                                 @endif
                                             </h6>
                                         </div>
-                                        <div class="col-4" style="text-align: right;">
+                                        <div class="md:col-4 col-2" style="text-align: right;">
                                             <span class="spentAmount"
                                                 @if ($item['totalSpent'] >= $item['budget']->amount) style="color: #D21414;" @endif>
                                                 £{{ number_format($item['totalSpent'], 2) }}

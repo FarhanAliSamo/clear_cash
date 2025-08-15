@@ -14,6 +14,6 @@
         <a href="{{ route('transactions.index') }}"><i class="fa-solid fa-arrow-right-arrow-left"></i> Transactions</a>
     </li>
     <li>
-        <a href="{{ route('recurring-payments.index') }}"><i class="fa-solid fa-arrows-rotate"></i> Recurring Payments</a>
+        {{-- <a href="{{ route('recurring-payments.index') }}"><i class="fa-solid fa-arrows-rotate"></i> Recurring Payments</a> --}}
     </li>
 </ul>
