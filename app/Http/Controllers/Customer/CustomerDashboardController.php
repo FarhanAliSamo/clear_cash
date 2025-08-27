@@ -56,7 +56,6 @@ class CustomerDashboardController extends Controller
 
             $income = Transaction::where('user_id', Auth::user()->id)
                 ->where('transaction_type', 'income')
-
                 ->sum('amount');
 
             $expense = Transaction::where('user_id', Auth::user()->id)

@@ -14,8 +14,8 @@ class CustomerBankAccountController extends Controller
      */
     public function index()
     {
-        $bankAccounts = BankAccount::where('user_id', Auth::user()->id)->orderBy('account_name', 'asc')->get();
-
+        $bankAccounts = BankAccount::with('transactions')->where('user_id', Auth::user()->id)->orderBy('account_name', 'asc')->get();
+       
         return view('customer.pages.bank-accounts.index', compact('bankAccounts'));
     }
 

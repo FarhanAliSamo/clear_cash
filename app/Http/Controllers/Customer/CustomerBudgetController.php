@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\Budget;
 use App\Models\BudgetCategory;
+use App\Models\BankAccount;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -84,8 +85,26 @@ class CustomerBudgetController extends Controller
             }
         }
 
+        // $income = Transaction::where('user_id', Auth::user()->id)
+        //     ->where('transaction_type', 'income')
+        //     ->sum('amount');
 
-        return view('customer.pages.budget.index', compact('budgetStartDate', 'budgetEndDate', 'budgetItems', 'totalBudget', 'amountSpent', 'remainingBudget', 'categoryDetails'));
+        $income = BankAccount::where('user_id', Auth::user()->id)->sum('starting_balance');
+
+
+        $income > 0 ? $clearCashBalance = $income - $amountSpent : $clearCashBalance = 0;
+
+
+        // dd($budgetStartDate,$budgetEndDate);
+
+
+        $budgetEndDate = Carbon::parse($budgetEndDate);
+        $today = Carbon::now();
+
+        // Difference in days (budgetEndDate - today)
+        $daysLeft = $today->diffInDays($budgetEndDate, false);;
+
+        return view('customer.pages.budget.index', compact('budgetStartDate', 'budgetEndDate', 'budgetItems', 'totalBudget', 'amountSpent', 'remainingBudget', 'categoryDetails', 'income', 'clearCashBalance', 'daysLeft'));
     }
 
     public function update(Request $request, string $id)

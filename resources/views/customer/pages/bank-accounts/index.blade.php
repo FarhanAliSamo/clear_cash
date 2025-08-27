@@ -114,6 +114,59 @@
                                                         </div>
                                                     </div>
                                                 </form>
+
+
+                                             @if ($account->transactions->isNotEmpty())
+                                                    <div class="transactionList">
+                                                        <h4 class="mb-3 fw-semibold text-white">Recent Transactions</h4>
+
+                                                        <ul class="list-group">
+                                                            @foreach ($account->transactions as $transaction)
+                                                                <li class="list-group-item d-flex justify-content-between align-items-center my-1"
+                                                                    style="background-color: #d1f9ff0d ;border:none;">
+                                                                    <div class="d-flex flex-column">
+                                                                        <span
+                                                                            class="fs-5 fw-semibold text-white">{{ $transaction->name ?? 'No Name' }}</span>
+                                                                        <small
+                                                                            class="text-white">{{ \Carbon\Carbon::parse($transaction->date)->format('d M, Y') }}</small>
+                                                                    </div>
+                                                                    @if ($transaction->transaction_type == 'income')
+                                                                        <span class="badge bg-success fs-6">
+                                                                            £
+                                                                            +{{ number_format($transaction->amount, 2) }}</span>
+                                                                    @else
+                                                                        <span class="badge bg-danger fs-6">
+                                                                            £{{ number_format($transaction->amount, 2) }}</span>
+                                                                    @endif
+
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @else
+                                                    <ul class="list-group">
+
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                                                            style="background-color: #d1f9ff0d ;border:none;">
+                                                            <div class="d-flex flex-column">
+                                                                <span class="text-white">No Transaction recorded yet for
+                                                                    this
+                                                                    Bank</span>
+
+
+                                                            </div>
+
+                                                        </li>
+
+                                                    </ul>
+                                                    {{-- <p class="mt-4 text-muted text-white">No expenses recorded yet for this category.</p> --}}
+                                                @endif
+
+
+
+
+
+
                                             </div>
                                             <div class="modal-footer">
 
@@ -148,8 +201,8 @@
         </div>
     </section>
 
-    <div class="modal fade" id="addBankAccountModal" tabindex="-1" aria-labelledby="addBankAccountModal" aria-hidden="true"
-        data-bs-backdrop="static">
+    <div class="modal fade" id="addBankAccountModal" tabindex="-1" aria-labelledby="addBankAccountModal"
+        aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -169,8 +222,9 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <label for="bank_account_type ">Account type span</label>
-                                <select name="bank_account_type " onchange="toggleNote(this.value)" id="bank_account_type">
+                                <label for="bank_account_type">Account type span</label>
+                                <select name="bank_account_type" onchange="toggleNote(this.value)"
+                                    id="bank_account_type">
                                     <option value="" disabled selected>Select an option...</option>
                                     <option value="current_account">Current Account</option>
                                     <option value="savings_account">Savings Account</option>

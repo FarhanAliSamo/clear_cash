@@ -38,6 +38,20 @@
             opacity: 0.7;
             cursor: not-allowed;
         }
+
+        .removeBankBtn,
+        .addAnotherBankBtn {
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .addAnotherBankBtn {
+            background: #007bff;
+        }
     </style>
 
     <section class="setupStepsWrapper">
@@ -94,23 +108,23 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <label>Name of Account</label>
-                                        <input type="text" name="name_of_pension_investment_account[]" required>
+                                        <input type="text" name="name_of_pension_investment_account[]"  >
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <label>Account type</label>
-                                        <select name="pension_investment_type[]" required>
+                                        <select name="pension_investment_type[]"  >
                                             <option value="" disabled selected>Select an option...</option>
                                             <option value="pension">Pension</option>
-                                            <option value="investment">Investments</option>
+                                            <option value="investment">Investment</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <label>Starting Balance</label>
-                                        <input type="number" name="pension_investment_account_starting_balance[]" step="any" required>
+                                        <input type="number" name="pension_investment_account_starting_balance[]" step="any"  >
                                     </div>
                                 </div>
                                 <div class="row">
@@ -146,114 +160,132 @@
         </div>
     </section>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const addAnotherBankBtn = document.querySelector(".addAnotherBankBtn");
-            const bankDetailsWrapper = document.querySelector(".bankDetailsInputMainWrap");
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const addAnotherBankBtn = document.querySelector(".addAnotherBankBtn");
+        const bankDetailsWrapper = document.querySelector(".bankDetailsInputMainWrap");
 
-            function checkIfComplete(bankItem) {
-                let allFilled = true;
+        function checkIfComplete(bankItem) {
+            let allFilled = true;
+            bankItem.querySelectorAll("input, select").forEach(field => {
+                if (!field.value.trim()) {
+                    allFilled = false;
+                }
+            });
+            if (allFilled) {
+                bankItem.classList.add("completed");
+            } else {
+                bankItem.classList.remove("completed");
+            }
+        }
+
+        function attachEvents(bankItem) {
+            bankItem.querySelectorAll("input, select").forEach(field => {
+                field.addEventListener("input", () => checkIfComplete(bankItem));
+            });
+
+            const saveBtn = bankItem.querySelector(".saveBankBtn");
+            const editBtn = bankItem.querySelector(".editBankBtn");
+
+            saveBtn.addEventListener("click", function() {
+                let valid = true;
                 bankItem.querySelectorAll("input[required], select[required]").forEach(field => {
                     if (!field.value.trim()) {
-                        allFilled = false;
+                        valid = false;
+                        field.style.border = "1px solid red";
+                    } else {
+                        field.style.border = "";
                     }
                 });
-                if (allFilled) {
-                    bankItem.classList.add("completed");
-                } else {
-                    bankItem.classList.remove("completed");
+
+                if (!valid) {
+                    alert("Please fill all required fields before saving.");
+                    return;
                 }
-            }
 
-            function attachEvents(bankItem) {
                 bankItem.querySelectorAll("input, select").forEach(field => {
-                    field.addEventListener("input", () => checkIfComplete(bankItem));
-                });
-
-                const saveBtn = bankItem.querySelector(".saveBankBtn");
-                const editBtn = bankItem.querySelector(".editBankBtn");
-
-                saveBtn.addEventListener("click", function() {
-                    let valid = true;
-                    bankItem.querySelectorAll("input[required], select[required]").forEach(field => {
-                        if (!field.value.trim()) {
-                            valid = false;
-                            field.style.border = "1px solid red";
-                        } else {
-                            field.style.border = "";
-                        }
-                    });
-
-                    if (!valid) {
-                        alert("Please fill all required fields before saving.");
-                        return;
-                    }
-
-                    bankItem.querySelectorAll("input, select").forEach(field => {
-                        if (field.tagName === "SELECT") {
+                    if (field.tagName === "SELECT") {
+                        // prevent duplicate hidden
+                        let existingHidden = bankItem.querySelector(
+                            `input[type="hidden"][name="${field.name}"]`
+                        );
+                        if (!existingHidden) {
                             const hidden = document.createElement("input");
                             hidden.type = "hidden";
                             hidden.name = field.name;
                             hidden.value = field.value;
                             bankItem.appendChild(hidden);
-                            field.setAttribute("disabled", true);
                         } else {
-                            field.setAttribute("readonly", true);
+                            existingHidden.value = field.value;
                         }
-                    });
-
-                    bankItem.classList.add("completed");
-                    saveBtn.textContent = "Saved";
-                    saveBtn.disabled = true;
-                    editBtn.style.display = "inline-block";
+                        field.setAttribute("disabled", true);
+                    } else {
+                        field.setAttribute("readonly", true);
+                    }
                 });
 
-                editBtn.addEventListener("click", function() {
-                    bankItem.querySelectorAll("input, select").forEach(field => {
-                        field.removeAttribute("readonly");
-                        field.removeAttribute("disabled");
-                    });
+                bankItem.classList.add("completed");
+                saveBtn.textContent = "Saved";
+                saveBtn.disabled = true;
+                editBtn.style.display = "inline-block";
+            });
 
-                    saveBtn.textContent = "Save";
-                    saveBtn.disabled = false;
-                    editBtn.style.display = "none";
-                });
-            }
-
-            attachEvents(bankDetailsWrapper.querySelector(".bankItem"));
-
-            addAnotherBankBtn.addEventListener("click", function() {
-                const firstBankItem = bankDetailsWrapper.querySelector(".bankItem");
-                const newBankItem = firstBankItem.cloneNode(true);
-
-                newBankItem.classList.remove("completed");
-                newBankItem.querySelectorAll("input, select").forEach(field => {
+            editBtn.addEventListener("click", function() {
+                bankItem.querySelectorAll("input, select").forEach(field => {
                     field.removeAttribute("readonly");
                     field.removeAttribute("disabled");
-                    field.style.border = "";
-                    if (field.tagName === "SELECT") {
-                        field.selectedIndex = 0;
-                    } else {
-                        field.value = "";
-                    }
                 });
 
-                newBankItem.querySelector(".saveBankBtn").textContent = "Save";
-                newBankItem.querySelector(".saveBankBtn").disabled = false;
-                newBankItem.querySelector(".editBankBtn").style.display = "none";
+                // remove hidden inputs on edit
+                bankItem.querySelectorAll('input[type="hidden"]').forEach(h => h.remove());
 
-                bankDetailsWrapper.appendChild(newBankItem);
-                attachEvents(newBankItem);
+                saveBtn.textContent = "Save";
+                saveBtn.disabled = false;
+                editBtn.style.display = "none";
             });
+        }
 
-            bankDetailsWrapper.addEventListener("click", function(event) {
-                if (event.target.classList.contains("removeBankBtn")) {
-                    const bankItem = event.target.closest(".bankItem");
-                    if (bankDetailsWrapper.querySelectorAll(".bankItem").length > 1) {
-                        bankItem.remove();
-                    }
+        // Attach events for first item
+        attachEvents(bankDetailsWrapper.querySelector(".bankItem"));
+
+        // Add new account block
+        addAnotherBankBtn.addEventListener("click", function() {
+            const firstBankItem = bankDetailsWrapper.querySelector(".bankItem");
+            const newBankItem = firstBankItem.cloneNode(true);
+
+            newBankItem.classList.remove("completed");
+            newBankItem.querySelectorAll("input, select").forEach(field => {
+                field.removeAttribute("readonly");
+                field.removeAttribute("disabled");
+                field.style.border = "";
+                if (field.tagName === "SELECT") {
+                    field.selectedIndex = 0;
+                } else {
+                    field.value = "";
                 }
             });
+
+            newBankItem.querySelector(".saveBankBtn").textContent = "Save";
+            newBankItem.querySelector(".saveBankBtn").disabled = false;
+            newBankItem.querySelector(".editBankBtn").style.display = "none";
+
+            // remove hidden inputs from clone
+            newBankItem.querySelectorAll('input[type="hidden"]').forEach(h => h.remove());
+
+            bankDetailsWrapper.appendChild(newBankItem);
+            attachEvents(newBankItem);
         });
-    </script>
+
+        // Remove account
+        bankDetailsWrapper.addEventListener("click", function(event) {
+            if (event.target.classList.contains("removeBankBtn")) {
+                const bankItem = event.target.closest(".bankItem");
+                if (bankDetailsWrapper.querySelectorAll(".bankItem").length > 1) {
+                    bankItem.remove();
+                }
+            }
+        });
+    });
+</script>
+
 @endsection

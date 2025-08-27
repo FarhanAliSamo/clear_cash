@@ -9,16 +9,6 @@
             width: 350px;
             margin: 0 auto;
         }
-
-        .budgetChartWrapper h4,
-        .budgetChartWrapper p {
-            color: white !important;
-        }
-
-        .budgetChartWrapper h4,
-        .budgetChartWrapper p {
-            color: white !important;
-        }
     </style>
 
     <section class="pageTitleBanner">
@@ -45,11 +35,50 @@
             </div>
             <div class="budgetChartWrapper text-center">
                 <canvas id="budgetChart" width="300" height="300"></canvas>
-                <h4 class="mt-3 fw-bold">Clearcash
+
+
+                <div class="row mt-3 text-white text-start">
+                    <div class="col-9">
+                        <h4 class=" fw-bold">Income
+                        </h4>
+
+                    </div>
+                    <div class="col-3">
+                        <h4 class=" fw-bold">£{{ number_format($income, 2) }}
+                        </h4>
+
+                    </div>
+
+                    <div class="col-9">
+                        <h4 class=" fw-bold">Expenses
+                        </h4>
+
+                    </div>
+                    <div class="col-3">
+                        <h4 class=" fw-bold">£{{ number_format($amountSpent, 2) }}
+                        </h4>
+                    </div>
+
+                    <div class="col-9">
+                        <h4 class=" fw-bold">Clear Cash Balance
+                        </h4>
+                    </div>
+                    <div class="col-3">
+                        <h4 id="remainingAmount" class="fw-bold text-primary">
+                            £{{ number_format($clearCashBalance, 2) }}
+                            {{-- £{{ number_format($remainingBudget, 2) }} --}}
+                        </h4>
+
+                    </div>
+
+                </div>
+
+
+                {{-- <h4 class="mt-3 fw-bold">Clearcash
                     left <span id="remainingAmount">£{{ number_format($remainingBudget, 2) }}</span>
                 </h4>
                 <p class="text-muted">Spent £{{ number_format($amountSpent, 2) }} out of
-                    £{{ number_format($totalBudget, 2) }}</p>
+                    £{{ number_format($totalBudget, 2) }}</p> --}}
             </div>
 
 
@@ -61,7 +90,7 @@
                 }
             </style> --}}
 
-            <script>
+            {{-- <script>
                 const categoryLabels = [
                     @foreach ($categoryDetails as $item)
                         "{{ str_replace('_', ' ', $item['budgetItem']->category_name) }}",
@@ -148,6 +177,190 @@
 
                 // Remaining amount ka color update
                 document.getElementById("remainingAmount").style.color = remainingAmount < 0 ? "#183236" : "#44E0AC";
+            </script> --}}
+
+
+            {{-- <script>
+                const categoryLabels = [
+                    @foreach ($categoryDetails as $item)
+                        "{{ str_replace('_', ' ', $item['budgetItem']->category_name) }}",
+                    @endforeach
+                    "Remaining"
+                ];
+
+                const categorySpentAmounts = [
+                    @foreach ($categoryDetails as $item)
+                        {{ $item['totalSpent'] }},
+                    @endforeach
+                    {{ $remainingBudget }}
+                ];
+
+                // ✅ Random pastel color generator (always visible)
+                function getRandomPastelColor() {
+                    const hue = Math.floor(Math.random() * 360); // 0–360 (different colors)
+                    const pastel = `hsl(${hue}, 70%, 65%)`; // pastel tone
+                    return pastel;
+                }
+
+                const categoryColors = [];
+
+                // loop through categories and assign random pastel colors
+                @foreach ($categoryDetails as $item)
+                    categoryColors.push(getRandomPastelColor());
+                @endforeach
+
+                // Remaining ka color fix dark
+                categoryColors.push("#183236");
+
+                const totalAmount = {{ $totalBudget }};
+                const amountSpent = {{ $amountSpent }};
+                const remainingAmount = totalAmount - amountSpent;
+
+                // Chart.js Doughnut Chart
+                const ctx = document.getElementById("budgetChart").getContext("2d");
+                const budgetChart = new Chart(ctx, {
+                    type: "doughnut",
+                    data: {
+                        labels: categoryLabels,
+                        datasets: [{
+                            data: categorySpentAmounts,
+                            backgroundColor: categoryColors,
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        cutout: '70%',
+                        plugins: {
+                            legend: {
+                                position: "bottom",
+                                labels: {
+                                    color: "#ffffff",
+                                    boxWidth: 15,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const value = context.raw;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `${context.label}: £${value.toFixed(2)} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Remaining amount ka color update
+                document.getElementById("remainingAmount").style.color = remainingAmount < 0 ? "#D21414" : "#44E0AC";
+            </script> --}}
+
+            <script>
+                const categoryLabels = [
+                    @foreach ($categoryDetails as $item)
+                        "{{ str_replace('_', ' ', $item['budgetItem']->category_name) }}",
+                    @endforeach
+                    "Remaining"
+                ];
+
+                const categorySpentAmounts = [
+                    @foreach ($categoryDetails as $item)
+                        {{ $item['totalSpent'] }},
+                    @endforeach
+                    {{ $remainingBudget }}
+                ];
+
+                const baseColors = [
+                    "#E6194B", // Red
+                    "#3CB44B", // Green
+                    "#FFE119", // Yellow
+                    "#0082C8", // Blue
+                    "#911EB4", // Purple
+                    "#46F0F0", // Cyan
+                    "#F032E6", // Magenta
+                    "#D2F53C", // Lime
+                    "#008080", // Teal
+                    "#AA6E28", // Brown
+                    "#800000", // Maroon
+                    "#808000", // Olive
+                    "#000080", // Navy
+                    "#808080", // Gray
+                    "#FFD8B1", // Peach
+                    "#FABED4", // Pink
+                    "#DCBEFF", // Lavender
+                    "#A9A9A9", // Dark Gray
+                    "#9A6324", // Dark Brown
+                    "#469990", // Sea Green
+                    "#42D4F4", // Sky Blue
+                    "#BFEF45", // Bright Green
+                    "#F58231", // Orange
+                    "#4363D8", // Strong Indigo
+                    "#FABE58", // Golden Sand
+                    "#B80000", // Deep Crimson
+                    "#6A5ACD", // Slate Blue
+                    "#20B2AA", // Light Sea Green
+                    "#FF69B4", // Hot Pink
+                    "#000000", // Black
+                ];
+
+
+
+                const categoryColors = [];
+
+                @foreach ($categoryDetails as $index => $item)
+                    categoryColors.push(baseColors[{{ $loop->index }} % baseColors.length]);
+                @endforeach
+
+                // Remaining ka color fix dark
+                categoryColors.push("#183236");
+
+                const totalAmount = {{ $totalBudget }};
+                const amountSpent = {{ $amountSpent }};
+                const remainingAmount = totalAmount - amountSpent;
+
+                // Chart.js Doughnut Chart
+                const ctx = document.getElementById("budgetChart").getContext("2d");
+                const budgetChart = new Chart(ctx, {
+                    type: "doughnut",
+                    data: {
+                        labels: categoryLabels,
+                        datasets: [{
+                            data: categorySpentAmounts,
+                            backgroundColor: categoryColors,
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        cutout: '70%',
+                        plugins: {
+                            legend: {
+                                position: "bottom",
+                                labels: {
+                                    color: "#ffffff",
+                                    boxWidth: 15,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const value = context.raw;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `${context.label}: £${value.toFixed(2)} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Remaining amount ka color update
+                document.getElementById("remainingAmount").style.color = remainingAmount < 0 ? "#D21414" : "#44E0AC";
             </script>
 
         </div>
@@ -187,7 +400,8 @@
                                                     <span class="px-1 opacity-75"> left of </span>
                                                     £{{ number_format($item['budget']->amount, 2) }}
                                                     <span class="text-danger ms-2">
-                                                        (Overspent by £{{ number_format($item['totalSpent'] - $item['budget']->amount, 2) }})
+                                                        (Overspent by
+                                                        £{{ number_format($item['totalSpent'] - $item['budget']->amount, 2) }})
                                                     </span>
                                                 @else
                                                     £{{ number_format($item['remainingAmount'], 2) }}
@@ -243,20 +457,26 @@
 
 
 
-                                                                    You have <span style="color:#31d2f7"> £
+                                                                    You have daily budget of  <span style="color:#31d2f7"> £
 
 
                                                                         @if ($item['totalSpent'] == '0')
-                                                                            {{ number_format($item['budget']->amount, 2) }}
+
+                                                                            {{ number_format($item['budget']->amount / $daysLeft, 2)   }}
+
+
+
                                                                         @elseif($item['totalSpent'] > $item['budget']->amount)
                                                                             0.00
-                                                                            @else{{ number_format($item['remainingAmount'], 2) }}
+                                                                        @else
+                                                                        {{ number_format($item['remainingAmount'] / $daysLeft, 2)  }}
                                                                         @endif
 
                                                                     </span>
 
-                                                                    left for this category ( £
-                                                                    {{ number_format($item['budget']->amount, 2) }} )
+                                                                   for this category
+                                                                   {{-- ( £
+                                                                    {{ number_format($item['budget']->amount, 2) }} ) --}}
 
 
 
@@ -285,15 +505,13 @@
                                                                         <small
                                                                             class="text-white">{{ \Carbon\Carbon::parse($transaction->date)->format('d M, Y') }}</small>
                                                                     </div>
-                                                                    @if($transaction->transaction_type == 'income')
-                                                                    <span
-                                                                    class="badge bg-success fs-6">
-                                                                    £ +{{ number_format($transaction->amount, 2) }}</span>
+                                                                    @if ($transaction->transaction_type == 'income')
+                                                                        <span class="badge bg-success fs-6">
+                                                                            £
+                                                                            +{{ number_format($transaction->amount, 2) }}</span>
                                                                     @else
-                                                                    <span
-                                                                    class="badge bg-danger fs-6">
-                                                                    £{{ number_format($transaction->amount, 2) }}</span>
-
+                                                                        <span class="badge bg-danger fs-6">
+                                                                            £{{ number_format($transaction->amount, 2) }}</span>
                                                                     @endif
 
                                                                 </li>

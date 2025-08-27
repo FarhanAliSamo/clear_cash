@@ -204,16 +204,19 @@
                     }
 
                     bankItem.querySelectorAll("input, select").forEach(field => {
-                        field.setAttribute("readonly", true);
-                        // field.setAttribute("readonly", true);
-
                         if (field.tagName === "SELECT") {
-                            const hidden = document.createElement("input");
-                            hidden.type = "hidden";
-                            hidden.name = field.name;
+                            // disable select
+                            field.setAttribute("disabled", true);
+
+                            // hidden input manage
+                            let hidden = bankItem.querySelector(`input[type="hidden"][name="${field.name}"]`);
+                            if (!hidden) {
+                                hidden = document.createElement("input");
+                                hidden.type = "hidden";
+                                hidden.name = field.name;
+                                bankItem.appendChild(hidden);
+                            }
                             hidden.value = field.value;
-                            bankItem.appendChild(hidden);
-                            field.setAttribute("disabled", true); // sirf UI block karne ke liye
                         } else {
                             field.setAttribute("readonly", true);
                         }
@@ -231,7 +234,9 @@
                         field.removeAttribute("disabled");
                     });
 
-                    const saveBtn = bankItem.querySelector(".saveBankBtn");
+                    // remove hidden inputs on edit
+                    bankItem.querySelectorAll('input[type="hidden"]').forEach(h => h.remove());
+
                     saveBtn.textContent = "Save";
                     saveBtn.disabled = false;
                     editBtn.style.display = "none";

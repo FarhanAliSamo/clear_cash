@@ -201,11 +201,12 @@ class AccountSetupController extends Controller
     }
     public function stepFiveStore(Request $request)
     {
+
         $validated = $request->validate([
             'name_of_bank_account.*' => 'required|string',
             'bank_account_type.*' => 'required|string',
             'bank_account_starting_balance.*' => 'required|numeric',
-            'other_name.*' => 'nullable|string', // Allow dynamic expenses
+            'other_name.*' => 'nullable|string',
             'other_amounts.*' => 'nullable|numeric|min:0',
         ]);
 
@@ -255,6 +256,7 @@ class AccountSetupController extends Controller
         //     'savings_pension_amount' => ['nullable', 'numeric', 'min:0'],
         // ]);
 
+        // dd($request->all());
 
 
         $accSetup = $request->session()->get('accSetup', []);
@@ -431,6 +433,7 @@ class AccountSetupController extends Controller
             'amount' => '0',
             'user_id' => $user->id,
             'budget_start_date' => Carbon::today(),
+            'budget_end_date' => $budgetExpiryDate,
         ]);
 
         // Mark user setup as completed
