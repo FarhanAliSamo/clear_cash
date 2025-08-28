@@ -43,7 +43,8 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $this->validator($request->all())->validate();
 
         $user = $this->create($request->all());
@@ -79,14 +80,33 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
+        $username = strtolower($data['first_name'] . $data['last_name']);
+        $originalUsername = $username;
+        $counter = 1;
+
+        // Check until unique username is found
+        while (User::where('username', $username)->exists()) {
+            $username = $originalUsername . $counter;
+            $counter++;
+        }
+
         $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'full_name' => $data['first_name'] . ' ' . $data['last_name'],
-            'username' => $data['first_name'] . $data['last_name'],
+            'username' => $username,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        // $user = User::create([
+        //     'first_name' => $data['first_name'],
+        //     'last_name' => $data['last_name'],
+        //     'full_name' => $data['first_name'] . ' ' . $data['last_name'],
+        //     'username' => $data['first_name'] . $data['last_name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        // ]);
 
         $user->assignRole('customer');
 
