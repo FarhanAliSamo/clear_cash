@@ -19732,3 +19732,38 @@ fieldset:disabled .btn {
         margin-bottom: 1rem;
     }
 }
+
+
+.transaction-date-header{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.total-expense{
+    font-size: 1.2rem !important;
+}
+
+@media (max-width: 576px) {
+    
+    .total-expense-date{
+        font-size: 1.2rem !important;
+    }
+    .total-expense{
+        font-size: 1rem !important;
+    }
+}
+@media (max-width: 576px) {
+    
+    .transaction-date-header{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0px;
+        margin-bottom: 10px;
+    }
+    .total-expense-date{
+        font-size: 1.1rem !important;
+    }
+    .total-expense{
+        font-size: 0.9rem !important;
+    }
+}

@@ -75,7 +75,7 @@
 
                     </div>
                 </div>
-
+{{-- 
                 <div class="col-12 mt-4">
                     <div class="row g-3">
                         <div class="col-md-6">
@@ -91,15 +91,24 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
 
     @if ($transactions->isNotEmpty())
-        @foreach ($groupedTransactions as $transactionsOnDate)
+        @foreach ($groupedTransactions as $date => $transactionsOnDate)
             <section class="transactionGroup">
-                <h4>{{ \Carbon\Carbon::parse($transactionsOnDate->first()->date)->format('F j, Y') }}</h4>
+                <div class="transaction-date-header">
+
+                    <h4 class="total-expense-date">{{ \Carbon\Carbon::parse($transactionsOnDate->first()->date)->format('F j, Y') }}</h4>
+                    {{-- {{ \Carbon\Carbon::parse($date)->format('F j, Y') }} --}}
+                    {{-- <span class="badge bg-danger ms-2"> --}}
+                       <h4 class="total-expense">Total Expense: £{{ number_format($dailyExpenses[$date], 2) }}</h4> 
+                    {{-- </span> --}}
+
+                </div>
+
                 <div class="transactionList">
                     @foreach ($transactionsOnDate as $transaction)
                         @if ($transaction->transaction_type == 'fundtransfer')

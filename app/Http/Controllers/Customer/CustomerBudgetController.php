@@ -21,9 +21,11 @@ class CustomerBudgetController extends Controller
         // Get the most recent budget period
         $mainBudget = Budget::where('user_id', Auth::user()->id)
             ->latest('budget_start_date')
-            ->where('category_name', '!=', 'salary')
             ->where('category_name', '!=', 'uncategorised')
+            ->where('category_name', '!=', 'salary')
             ->first();
+
+        // dd($mainBudget);
 
         $budgetStartDate = $mainBudget ? $mainBudget->budget_start_date : Carbon::now();
         $budgetEndDate = $mainBudget ? $mainBudget->budget_end_date : Carbon::now()->addMonth();
@@ -32,9 +34,9 @@ class CustomerBudgetController extends Controller
         $budgetItems = Budget::where('user_id', Auth::user()->id)
             ->whereBetween('budget_start_date', [$budgetStartDate, $budgetEndDate])
             ->where('category_name', '!=', 'salary')
-            ->where('category_name', '!=', 'uncategorised')
             ->get();
-
+        // ->where('category_name', '!=', 'uncategorised')
+        // dd($budgetItems);
         $totalBudget = $budgetItems->sum('amount');
 
         $amountSpent = Transaction::where('user_id', Auth::user()->id)
@@ -44,7 +46,69 @@ class CustomerBudgetController extends Controller
 
         $remainingBudget = $totalBudget - $amountSpent;
 
+
         $categoryDetails = [];
+
+// new
+        // foreach ($budgetItems as $budgetItem) {
+        //     if ($budgetItem->category_name === 'uncategorised') {
+        //         // Uncategorised ke liye budget table entry nahi hoti
+        //         $transactions = Transaction::where('user_id', Auth::id())
+        //             ->whereNull('category_id') // agar uncategorised ki id nahi hoti
+        //             ->where('transaction_type', 'expense')
+        //             ->get();
+
+        //         $budgetTotalSpent = $transactions->sum('amount');
+
+        //         // uncategorised ka koi budget amount nahi hota, so treat as 0
+        //         $startingBudgetAmount = 0;
+        //         $remainingAmount = 0 - $budgetTotalSpent;
+        //         $spentPercentage = 0; // kyunki budget hi nahi set hua
+
+        //         $categoryDetails[] = [
+        //             'budgetItem' => $budgetItem,
+        //             'budget' => null, // koi budget record nahi hai
+        //             'transactions' => $transactions,
+        //             'totalSpent' => $budgetTotalSpent,
+        //             'startingBudgetAmount' => $startingBudgetAmount,
+        //             'remainingAmount' => $remainingAmount,
+        //             'spentPercentage' => round($spentPercentage, 2),
+        //         ];
+        //     } else {
+        //         // Normal categories ka logic
+        //         $budget = Budget::where('user_id', Auth::id())
+        //             ->where('id', $budgetItem->id)
+        //             ->whereDate('budget_end_date', '>=', Carbon::today()->format('Y-m-d'))
+        //             ->where('amount', '>', 0)
+        //             ->where('category_name', '!=', 'salary')
+        //             ->first();
+
+        //         if ($budget) {
+        //             $transactions = Transaction::where('user_id', Auth::id())
+        //                 ->where('category_id', $budgetItem->id)
+        //                 ->where('transaction_type', 'expense')
+        //                 ->get();
+
+        //             $budgetTotalSpent = $transactions->sum('amount');
+        //             $startingBudgetAmount = $budget->amount;
+        //             $remainingAmount = $startingBudgetAmount - $budgetTotalSpent;
+        //             $spentPercentage = $startingBudgetAmount > 0
+        //                 ? ($budgetTotalSpent / $startingBudgetAmount) * 100
+        //                 : 0;
+
+        //             $categoryDetails[] = [
+        //                 'budgetItem' => $budgetItem,
+        //                 'budget' => $budget,
+        //                 'transactions' => $transactions,
+        //                 'totalSpent' => $budgetTotalSpent,
+        //                 'startingBudgetAmount' => $startingBudgetAmount,
+        //                 'remainingAmount' => $remainingAmount,
+        //                 'spentPercentage' => round($spentPercentage, 2),
+        //             ];
+        //         }
+        //     }
+        // }
+
 
         foreach ($budgetItems as $budgetItem) {
             // Fetch the exact budget for this category (not the first available one)
@@ -53,8 +117,8 @@ class CustomerBudgetController extends Controller
                 ->whereDate('budget_end_date', '>=', Carbon::today()->format('Y-m-d'))
                 ->where('amount', '>', 0)
                 ->where('category_name', '!=', 'salary')
-                ->where('category_name', '!=', 'uncategorised')
                 ->first();
+            // ->where('category_name', '!=', 'uncategorised')
 
             if ($budget) {
                 $transactions = Transaction::where('user_id', Auth::user()->id)
@@ -85,9 +149,9 @@ class CustomerBudgetController extends Controller
             }
         }
 
-        // $income = Transaction::where('user_id', Auth::user()->id)
-        //     ->where('transaction_type', 'income')
-        //     ->sum('amount');
+        $income = Transaction::where('user_id', Auth::user()->id)
+            ->where('transaction_type', 'income')
+            ->sum('amount');
 
         $income = BankAccount::where('user_id', Auth::user()->id)->sum('starting_balance');
 

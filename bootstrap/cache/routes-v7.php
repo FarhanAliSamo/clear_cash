@@ -200,7 +200,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::exi7y6HwaDyTwYTV',
+            '_route' => 'generated::2ZMDqxxguYwfb73c',
           ),
           1 => NULL,
           2 => 
@@ -220,7 +220,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::EApw6ExZFU9hur30',
+            '_route' => 'generated::alyzwY7z6usqm9Tc',
           ),
           1 => NULL,
           2 => 
@@ -953,7 +953,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::CQRvboNJHUDAPCOu',
+            '_route' => 'generated::Do4jVqhAK6ulskv9',
           ),
           1 => NULL,
           2 => 
@@ -1008,7 +1008,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::8sKOxZZ9ZY3mq3SE',
+            '_route' => 'generated::htcAibO1b8IzlKIt',
           ),
           1 => NULL,
           2 => 
@@ -1099,7 +1099,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::JmYvPEqlkWupXUJq',
+            '_route' => 'generated::D99ThlzhjcuFtiir',
           ),
           1 => NULL,
           2 => 
@@ -2150,7 +2150,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::exi7y6HwaDyTwYTV' => 
+    'generated::2ZMDqxxguYwfb73c' => 
     array (
       'methods' => 
       array (
@@ -2165,7 +2165,7 @@ app('router')->setCompiledRoutes(
           0 => 'api',
           1 => 'auth:sanctum',
         ),
-        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:77:"function (\\Illuminate\\Http\\Request $request) {
+        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:79:"function (\\Illuminate\\Http\\Request $request) {
     return $request->user();
 }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000006220000000000000000";}}',
         'namespace' => NULL,
@@ -2173,7 +2173,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::exi7y6HwaDyTwYTV',
+        'as' => 'generated::2ZMDqxxguYwfb73c',
       ),
       'fallback' => false,
       'defaults' => 
@@ -2189,7 +2189,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::EApw6ExZFU9hur30' => 
+    'generated::alyzwY7z6usqm9Tc' => 
     array (
       'methods' => 
       array (
@@ -2203,7 +2203,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 'web',
         ),
-        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:55:"function () {
+        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:57:"function () {
     return \\redirect()->route(\'login\');
 }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000006240000000000000000";}}',
         'namespace' => NULL,
@@ -2211,7 +2211,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::EApw6ExZFU9hur30',
+        'as' => 'generated::alyzwY7z6usqm9Tc',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4500,7 +4500,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::CQRvboNJHUDAPCOu' => 
+    'generated::Do4jVqhAK6ulskv9' => 
     array (
       'methods' => 
       array (
@@ -4520,7 +4520,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::CQRvboNJHUDAPCOu',
+        'as' => 'generated::Do4jVqhAK6ulskv9',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4609,7 +4609,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::8sKOxZZ9ZY3mq3SE' => 
+    'generated::htcAibO1b8IzlKIt' => 
     array (
       'methods' => 
       array (
@@ -4629,7 +4629,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::8sKOxZZ9ZY3mq3SE',
+        'as' => 'generated::htcAibO1b8IzlKIt',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4828,7 +4828,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::JmYvPEqlkWupXUJq' => 
+    'generated::D99ThlzhjcuFtiir' => 
     array (
       'methods' => 
       array (
@@ -4848,7 +4848,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::JmYvPEqlkWupXUJq',
+        'as' => 'generated::D99ThlzhjcuFtiir',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4879,7 +4879,7 @@ app('router')->setCompiledRoutes(
           0 => 'web',
           1 => 'guest',
         ),
-        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:52:"function(){
+        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:54:"function(){
     return \\view(\'auth.verify-email\');
 }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"00000000000006260000000000000000";}}',
         'namespace' => NULL,
@@ -4918,7 +4918,7 @@ app('router')->setCompiledRoutes(
           0 => 'web',
           1 => 'signed',
         ),
-        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:626:"function (\\Illuminate\\Http\\Request $request, $id, $hash) {
+        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:644:"function (\\Illuminate\\Http\\Request $request, $id, $hash) {
     $user = \\App\\Models\\User::findOrFail($id);
 
     if (!\\hash_equals((string) $hash, \\sha1($user->getEmailForVerification()))) {
@@ -5010,7 +5010,7 @@ app('router')->setCompiledRoutes(
           1 => 'auth',
           2 => 'guest',
         ),
-        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:54:"function(){
+        'uses' => 'O:55:"Laravel\\SerializableClosure\\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\\SerializableClosure\\Serializers\\Native":5:{s:3:"use";a:0:{}s:8:"function";s:56:"function(){
     return \\view(\'auth.email-verified\');
 }";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000a250000000000000000";}}',
         'namespace' => NULL,

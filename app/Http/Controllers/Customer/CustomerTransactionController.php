@@ -39,6 +39,8 @@ class CustomerTransactionController extends Controller
 
         $totalTransactionAmountToday = $todayTransactions->sum('amount');
 
+
+
         // Assuming there's a 'type' field in transaction which can be 'expense'
         $totalExpenseAmountToday = $todayTransactions->filter(function ($transaction) {
             return $transaction->transaction_type === 'expense';
@@ -49,12 +51,20 @@ class CustomerTransactionController extends Controller
             ->where('account_name', '!=', 'pension')
             ->get();
 
+
+
+        $dailyExpenses = [];
+        foreach ($groupedTransactions as $date => $trans) {
+            $dailyExpenses[$date] = $trans->where('transaction_type', 'expense')->sum('amount');
+        }
+
         return view('customer.pages.transactions.index', compact(
             'groupedTransactions',
             'bankAccounts',
             'transactions',
             'totalTransactionAmountToday',
-            'totalExpenseAmountToday'
+            'totalExpenseAmountToday',
+            'dailyExpenses'
         ));
     }
 
