@@ -385,196 +385,359 @@
 
                         @foreach ($categoryDetails as $item)
                             <div class="catItem">
-                                <button type="button" class="modalBtn" data-bs-toggle="modal"
-                                    data-bs-target="#modal-{{ str_replace(' ', '-', $item['budgetItem']->category_name) }}">
-                                    <div class="row px-0 align-items-start">
-                                        <div class="md:col-8 col-10">
-                                            <h5>{{ str_replace('_', ' ', $item['budgetItem']->category_name) }}</h5>
-                                            <h6>
-                                                @if ($item['totalSpent'] == '0')
-                                                    £{{ number_format($item['budget']->amount, 2) }}
-                                                    <span class="px-1 opacity-75"> left of </span>
-                                                    £{{ number_format($item['budget']->amount, 2) }}
-                                                @elseif($item['totalSpent'] > $item['budget']->amount)
-                                                    0.00
-                                                    <span class="px-1 opacity-75"> left of </span>
-                                                    £{{ number_format($item['budget']->amount, 2) }}
-                                                    <span class="text-danger ms-2">
-                                                        (Overspent by
-                                                        £{{ number_format($item['totalSpent'] - $item['budget']->amount, 2) }})
-                                                    </span>
-                                                @else
-                                                    £{{ number_format($item['remainingAmount'], 2) }}
-                                                    <span class="px-1 opacity-75"> left of </span>
-                                                    £{{ number_format($item['budget']->amount, 2) }}
-                                                @endif
-                                            </h6>
+
+                                @if ($item['budgetItem']->category_name == 'uncategorised')
+                                    <button type="button" class="modalBtn" data-bs-toggle="modal"
+                                        data-bs-target="#modal-{{ str_replace(' ', '-', $item['budgetItem']->category_name) }}">
+                                        <div class="row px-0 align-items-start">
+                                            <div class="md:col-8 col-10">
+                                                <h5>{{ str_replace('_', ' ', $item['budgetItem']->category_name) }}</h5>
+                                                <h6>
+                                                    <span class="inline-block me-2">Total Spent</span>
+                                                    £{{ number_format($item['totalSpent'] - $item['budget']->amount, 2) }}
+                                                </h6>
+                                            </div>
+                                            <div class="md:col-4 col-2" style="text-align: right;">
+                                                <span class="spentAmount">
+                                                    £{{ number_format($item['totalSpent'], 2) }}
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div class="md:col-4 col-2" style="text-align: right;">
-                                            <span class="spentAmount"
-                                                @if ($item['totalSpent'] >= $item['budget']->amount) style="color: #D21414;" @endif>
-                                                £{{ number_format($item['totalSpent'], 2) }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="row px-0">
-                                        <div class="col-12">
-                                            <div class="progress" role="progressbar" aria-label=""
-                                                aria-valuenow="{{ $item['startingBudgetAmount'] }}" aria-valuemin="0"
-                                                aria-valuemax="{{ $item['startingBudgetAmount'] }}">
-                                                <div class="progress-bar"
-                                                    style=" @if ($item['totalSpent'] >= $item['budget']->amount) background: linear-gradient(to top right, #D21414, #F96565); width: 100%; @else width: {{ $item['spentPercentage'] }}% @endif">
+                                        <div class="row px-0">
+                                            <div class="col-12">
+                                                <div class="progress" role="progressbar" aria-label=""
+                                                    aria-valuenow="{{ $item['startingBudgetAmount'] }}" aria-valuemin="0"
+                                                    aria-valuemax="{{ $item['startingBudgetAmount'] }}">
+                                                    <div class="progress-bar"
+                                                        style=" @if ($item['totalSpent'] >= $item['budget']->amount) background: linear-gradient(to top right, #D21414, #F96565); width: 100%; @else width: {{ $item['spentPercentage'] }}% @endif">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </button>
+                                    </button>
+                                    {{-- // to change  --}}
+                                    <div class="modal fade"
+                                        id="modal-{{ str_replace(' ', '-', $item['budgetItem']->category_name) }}"
+                                        tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                            <div class="modal-content ">
+                                                <div class="modal-header">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
 
 
-                                {{-- // to change  --}}
-                                <div class="modal fade"
-                                    id="modal-{{ str_replace(' ', '-', $item['budgetItem']->category_name) }}"
-                                    tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                        <div class="modal-content ">
-                                            <div class="modal-header">
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <i class="fas fa-times"></i>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
+                                                    <div class="transactionList mb-3 pt-0 mt-0">
 
+                                                        <ul class="list-group mt-0 pt-0">
 
-                                                <div class="transactionList mb-3 pt-0 mt-0">
-
-                                                    <ul class="list-group mt-0 pt-0">
-
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center my-1"
-                                                            style="background-color: #d1f9ff0d ;border:none;">
-                                                            <div class="d-flex flex-column">
-                                                                <span class="fs-5 fw-semibold text-white">
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center my-1"
+                                                                style="background-color: #d1f9ff0d ;border:none;">
+                                                                <div class="d-flex flex-column">
+                                                                    <span class="fs-5 fw-semibold text-white">
 
 
 
-                                                                    You have daily budget of  <span style="color:#31d2f7"> £
-
-
-                                                                        @if ($item['totalSpent'] == '0')
-
-                                                                            {{ number_format($item['budget']->amount / $daysLeft, 2)   }}
+                                                                        Total Spent<span style="color:#31d2f7"> £
+                                                                            {{ $item['totalSpent'] }}
 
 
 
-                                                                        @elseif($item['totalSpent'] > $item['budget']->amount)
-                                                                            0.00
-                                                                        @else
-                                                                        {{ number_format($item['remainingAmount'] / $daysLeft, 2)  }}
-                                                                        @endif
+                                                                        </span>
+
+
+
 
                                                                     </span>
 
-                                                                   for this category
-                                                                   {{-- ( £
+                                                                </div>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+
+
+                                                    {{-- Transaction List --}}
+                                                    @if (count($item['transactions']) > 0)
+                                                        <div class="transactionList">
+                                                            <h4 class="mb-3 fw-semibold text-white">Recent Expenses</h4>
+
+                                                            <ul class="list-group">
+                                                                @foreach ($item['transactions'] as $transaction)
+                                                                    <li class="list-group-item d-flex justify-content-between align-items-center my-1"
+                                                                        style="background-color: #d1f9ff0d ;border:none;">
+                                                                        <div class="d-flex flex-column">
+                                                                            <span
+                                                                                class="fs-5 fw-semibold text-white">{{ $transaction->name ?? 'No Name' }}</span>
+                                                                            <small
+                                                                                class="text-white">{{ \Carbon\Carbon::parse($transaction->date)->format('d M, Y') }}</small>
+                                                                        </div>
+                                                                        @if ($transaction->transaction_type == 'income')
+                                                                            <span class="badge bg-success fs-6">
+                                                                                £
+                                                                                +{{ number_format($transaction->amount, 2) }}</span>
+                                                                        @else
+                                                                            <span class="badge bg-danger fs-6">
+                                                                                £{{ number_format($transaction->amount, 2) }}</span>
+                                                                        @endif
+
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @else
+                                                        <ul class="list-group">
+
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center"
+                                                                style="background-color: #d1f9ff0d ;border:none;">
+                                                                <div class="d-flex flex-column">
+                                                                    <span class="text-white">No expenses recorded yet for
+                                                                        this
+                                                                        category</span>
+                                                                    {{-- <p class=" text-white">No expenses recorded yet for this category.</p> --}}
+
+                                                                </div>
+
+                                                            </li>
+
+                                                        </ul>
+                                                        {{-- <p class="mt-4 text-muted text-white">No expenses recorded yet for this category.</p> --}}
+                                                    @endif
+
+                                                    {{-- Edit Budget Section --}}
+                                                    {{-- <div class="edit-budget-section mt-4">
+                                                        <h4 class="fw-bold text-white mb-3">Edit
+                                                            {{ $item['budgetItem']->category_name }} Budget</h4>
+
+                                                        <form action="{{ route('budget.update', $item['budget']->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('put')
+
+                                                            <div class="mb-3">
+                                                                <label for="amount" class="theme_label">Amount
+                                                                    (£)
+                                                                </label>
+                                                                <input type="number" step="0.01" name="amount"
+                                                                    id="amount" class="theme_input"
+                                                                    value="{{ old('amount', $item['budget']->amount) }}"
+                                                                    required>
+                                                            </div>
+
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="submit"
+                                                                    class="twoToneBlueGreenBtn text-center py-2">Update
+                                                                    Budget</button>
+                                                            </div>
+                                                        </form>
+                                                    </div> --}}
+                                                </div>
+
+                                                {{-- <div class="modal-footer">
+                                                    <form action="{{ route('budget.reset-budget', $item['budget']->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('put')
+                                                        <button type="submit"
+                                                            class="twoToneBlueGreenBtn text-center py-2">Reset</button>
+                                                    </form>
+                                                </div> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <button type="button" class="modalBtn" data-bs-toggle="modal"
+                                        data-bs-target="#modal-{{ str_replace(' ', '-', $item['budgetItem']->category_name) }}">
+                                        <div class="row px-0 align-items-start">
+                                            <div class="md:col-8 col-10">
+                                                <h5>{{ str_replace('_', ' ', $item['budgetItem']->category_name) }}</h5>
+                                                <h6>
+                                                    @if ($item['totalSpent'] == '0')
+                                                        £{{ number_format($item['budget']->amount, 2) }}
+                                                        <span class="px-1 opacity-75"> left of </span>
+                                                        £{{ number_format($item['budget']->amount, 2) }}
+                                                    @elseif($item['totalSpent'] > $item['budget']->amount)
+                                                        0.00
+                                                        <span class="px-1 opacity-75"> left of </span>
+                                                        £{{ number_format($item['budget']->amount, 2) }}
+                                                        <span class="text-danger ms-2">
+                                                            (Overspent by
+                                                            £{{ number_format($item['totalSpent'] - $item['budget']->amount, 2) }})
+                                                        </span>
+                                                    @else
+                                                        £{{ number_format($item['remainingAmount'], 2) }}
+                                                        <span class="px-1 opacity-75"> left of </span>
+                                                        £{{ number_format($item['budget']->amount, 2) }}
+                                                    @endif
+                                                </h6>
+                                            </div>
+                                            <div class="md:col-4 col-2" style="text-align: right;">
+                                                <span class="spentAmount"
+                                                    @if ($item['totalSpent'] >= $item['budget']->amount) style="color: #D21414;" @endif>
+                                                    £{{ number_format($item['totalSpent'], 2) }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row px-0">
+                                            <div class="col-12">
+                                                <div class="progress" role="progressbar" aria-label=""
+                                                    aria-valuenow="{{ $item['startingBudgetAmount'] }}" aria-valuemin="0"
+                                                    aria-valuemax="{{ $item['startingBudgetAmount'] }}">
+                                                    <div class="progress-bar"
+                                                        style=" @if ($item['totalSpent'] >= $item['budget']->amount) background: linear-gradient(to top right, #D21414, #F96565); width: 100%; @else width: {{ $item['spentPercentage'] }}% @endif">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    {{-- // to change  --}}
+                                    <div class="modal fade"
+                                        id="modal-{{ str_replace(' ', '-', $item['budgetItem']->category_name) }}"
+                                        tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                            <div class="modal-content ">
+                                                <div class="modal-header">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+
+
+                                                    <div class="transactionList mb-3 pt-0 mt-0">
+
+                                                        <ul class="list-group mt-0 pt-0">
+
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center my-1"
+                                                                style="background-color: #d1f9ff0d ;border:none;">
+                                                                <div class="d-flex flex-column">
+                                                                    <span class="fs-5 fw-semibold text-white">
+
+
+
+                                                                        You have daily budget of <span
+                                                                            style="color:#31d2f7"> £
+
+
+                                                                            @if ($item['totalSpent'] == '0')
+                                                                                {{ number_format($item['budget']->amount / $daysLeft, 2) }}
+                                                                            @elseif($item['totalSpent'] > $item['budget']->amount)
+                                                                                0.00
+                                                                            @else
+                                                                                {{ number_format($item['remainingAmount'] / $daysLeft, 2) }}
+                                                                            @endif
+
+                                                                        </span>
+
+                                                                        for this category
+                                                                        {{-- ( £
                                                                     {{ number_format($item['budget']->amount, 2) }} ) --}}
 
 
 
 
-                                                                </span>
+                                                                    </span>
 
-                                                            </div>
-                                                        </li>
+                                                                </div>
+                                                            </li>
 
-                                                    </ul>
-                                                </div>
-
-
-                                                {{-- Transaction List --}}
-                                                @if (count($item['transactions']) > 0)
-                                                    <div class="transactionList">
-                                                        <h4 class="mb-3 fw-semibold text-white">Recent Expenses</h4>
-
-                                                        <ul class="list-group">
-                                                            @foreach ($item['transactions'] as $transaction)
-                                                                <li class="list-group-item d-flex justify-content-between align-items-center my-1"
-                                                                    style="background-color: #d1f9ff0d ;border:none;">
-                                                                    <div class="d-flex flex-column">
-                                                                        <span
-                                                                            class="fs-5 fw-semibold text-white">{{ $transaction->name ?? 'No Name' }}</span>
-                                                                        <small
-                                                                            class="text-white">{{ \Carbon\Carbon::parse($transaction->date)->format('d M, Y') }}</small>
-                                                                    </div>
-                                                                    @if ($transaction->transaction_type == 'income')
-                                                                        <span class="badge bg-success fs-6">
-                                                                            £
-                                                                            +{{ number_format($transaction->amount, 2) }}</span>
-                                                                    @else
-                                                                        <span class="badge bg-danger fs-6">
-                                                                            £{{ number_format($transaction->amount, 2) }}</span>
-                                                                    @endif
-
-                                                                </li>
-                                                            @endforeach
                                                         </ul>
                                                     </div>
-                                                @else
-                                                    <ul class="list-group">
 
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center"
-                                                            style="background-color: #d1f9ff0d ;border:none;">
-                                                            <div class="d-flex flex-column">
-                                                                <span class="text-white">No expenses recorded yet for this
-                                                                    category</span>
-                                                                {{-- <p class=" text-white">No expenses recorded yet for this category.</p> --}}
 
+                                                    {{-- Transaction List --}}
+                                                    @if (count($item['transactions']) > 0)
+                                                        <div class="transactionList">
+                                                            <h4 class="mb-3 fw-semibold text-white">Recent Expenses</h4>
+
+                                                            <ul class="list-group">
+                                                                @foreach ($item['transactions'] as $transaction)
+                                                                    <li class="list-group-item d-flex justify-content-between align-items-center my-1"
+                                                                        style="background-color: #d1f9ff0d ;border:none;">
+                                                                        <div class="d-flex flex-column">
+                                                                            <span
+                                                                                class="fs-5 fw-semibold text-white">{{ $transaction->name ?? 'No Name' }}</span>
+                                                                            <small
+                                                                                class="text-white">{{ \Carbon\Carbon::parse($transaction->date)->format('d M, Y') }}</small>
+                                                                        </div>
+                                                                        @if ($transaction->transaction_type == 'income')
+                                                                            <span class="badge bg-success fs-6">
+                                                                                £
+                                                                                +{{ number_format($transaction->amount, 2) }}</span>
+                                                                        @else
+                                                                            <span class="badge bg-danger fs-6">
+                                                                                £{{ number_format($transaction->amount, 2) }}</span>
+                                                                        @endif
+
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @else
+                                                        <ul class="list-group">
+
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center"
+                                                                style="background-color: #d1f9ff0d ;border:none;">
+                                                                <div class="d-flex flex-column">
+                                                                    <span class="text-white">No expenses recorded yet for
+                                                                        this
+                                                                        category</span>
+                                                                    {{-- <p class=" text-white">No expenses recorded yet for this category.</p> --}}
+
+                                                                </div>
+
+                                                            </li>
+
+                                                        </ul>
+                                                        {{-- <p class="mt-4 text-muted text-white">No expenses recorded yet for this category.</p> --}}
+                                                    @endif
+
+                                                    {{-- Edit Budget Section --}}
+                                                    <div class="edit-budget-section mt-4">
+                                                        <h4 class="fw-bold text-white mb-3">Edit
+                                                            {{ $item['budgetItem']->category_name }} Budget</h4>
+
+                                                        <form action="{{ route('budget.update', $item['budget']->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('put')
+
+                                                            <div class="mb-3">
+                                                                <label for="amount" class="theme_label">Amount
+                                                                    (£)</label>
+                                                                <input type="number" step="0.01" name="amount"
+                                                                    id="amount" class="theme_input"
+                                                                    value="{{ old('amount', $item['budget']->amount) }}"
+                                                                    required>
                                                             </div>
 
-                                                        </li>
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="submit"
+                                                                    class="twoToneBlueGreenBtn text-center py-2">Update
+                                                                    Budget</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
 
-                                                    </ul>
-                                                    {{-- <p class="mt-4 text-muted text-white">No expenses recorded yet for this category.</p> --}}
-                                                @endif
-
-                                                {{-- Edit Budget Section --}}
-                                                <div class="edit-budget-section mt-4">
-                                                    <h4 class="fw-bold text-white mb-3">Edit
-                                                        {{ $item['budgetItem']->category_name }} Budget</h4>
-
-                                                    <form action="{{ route('budget.update', $item['budget']->id) }}"
+                                                <div class="modal-footer">
+                                                    <form action="{{ route('budget.reset-budget', $item['budget']->id) }}"
                                                         method="post">
                                                         @csrf
                                                         @method('put')
-
-                                                        <div class="mb-3">
-                                                            <label for="amount" class="theme_label">Amount (£)</label>
-                                                            <input type="number" step="0.01" name="amount"
-                                                                id="amount" class="theme_input"
-                                                                value="{{ old('amount', $item['budget']->amount) }}"
-                                                                required>
-                                                        </div>
-
-                                                        <div class="d-flex justify-content-end">
-                                                            <button type="submit"
-                                                                class="twoToneBlueGreenBtn text-center py-2">Update
-                                                                Budget</button>
-                                                        </div>
+                                                        <button type="submit"
+                                                            class="twoToneBlueGreenBtn text-center py-2">Reset</button>
                                                     </form>
                                                 </div>
                                             </div>
-
-                                            <div class="modal-footer">
-                                                <form action="{{ route('budget.reset-budget', $item['budget']->id) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('put')
-                                                    <button type="submit"
-                                                        class="twoToneBlueGreenBtn text-center py-2">Reset</button>
-                                                </form>
-                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
+
 
                             </div>
                         @endforeach
